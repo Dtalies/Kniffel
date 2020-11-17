@@ -1,10 +1,13 @@
 
 
 
-public class Dice{
+/*public class Dice{
 
     public static void main(String args[]) 
     { 
+        
+            
+        
         // define the range 
         int max = 6; 
         int min = 1; 
@@ -21,6 +24,6 @@ public class Dice{
         System.out.println("Done"); 
         
     }
-}
+*/
 
 
