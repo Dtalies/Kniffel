@@ -1,19 +1,23 @@
+
+
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.event.*;
 
 
-
-
-
-
-import java.util.*;
 
 public class GUI {
     JFrame f;
+    JFrame f2;
     JPanel p;
     JPanel p2;
     JPanel p3;
+
+    ImageIO image;
 
     Container contentPane;
 
@@ -30,59 +34,80 @@ public class GUI {
     public GUI(){
         test();
     }
+    
+    
     public static void main(String args[])
     {
         new GUI();
     }
 
-    public void test()
+    public void test(Graphics g)
     
     {
+        Image bgImage= Toolkit.getDefaultToolkit().getImage("wallpaper_adrift.jpg");
+
+        
         f = new JFrame("TestWindow");
         //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setSize(500,500);
+        f.setSize(200,200);
         f.setVisible(true);
         f.setBackground(new Color(255,255,255));
+        g.drawImage(Image, 0, 0, null);
+
+        
+        
+        
+        
+
+
         p = new JPanel();
         p.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         p2 = new JPanel();
-        p2.setLayout(new BoxLayout(p2, BoxLayout. Y_AXIS));
+        p2.setLayout(new BoxLayout(p2, BoxLayout.X_AXIS));
 
         p3 = new JPanel();
-        p3.setLayout(new BoxLayout(p2, BoxLayout.Y_AXIS));
+        p3.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         contentPane = f.getContentPane();
 
         l = new JLabel("");
         l.setVisible(true);    
-        l.setPreferredSize(new Dimension(100, 100));
+        l.setPreferredSize(new Dimension(50, 50));
+        l.setBackground(Color.black);
+        l.setForeground(Color.black);
         l.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         
         l2 = new JLabel("");
         l2.setVisible(true);    
-        l2.setPreferredSize(new Dimension(100, 100));
+        l2.setPreferredSize(new Dimension(50, 50));
+        l2.setBackground(Color.black);
+        l2.setForeground(Color.black);
         l2.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));    
 
         l3 = new JLabel("");
         l3.setVisible(true);    
-        l3.setPreferredSize(new Dimension(100, 100));
+        l3.setPreferredSize(new Dimension(50, 50));
+        l3.setBackground(Color.black);
+        l3.setForeground(Color.black);
         l3.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));    
 
         l4 = new JLabel("");
         l4.setVisible(true);    
-        l4.setPreferredSize(new Dimension(100, 100));
+        l4.setPreferredSize(new Dimension(50, 50));
+        l4.setBackground(Color.black);
+        l4.setForeground(Color.black);
         l4.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));    
 
         l5 = new JLabel("");
         l5.setVisible(true);    
-        l5.setPreferredSize(new Dimension(100, 100));
-        l5.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));    
-
-        l5 = new JLabel("");
-        l5.setVisible(true);    
-        l5.setPreferredSize(new Dimension(100, 100));
+        l5.setPreferredSize(new Dimension(50, 50));
+        l5.setBackground(Color.black);
+        l5.setForeground(Color.black);
         l5.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+            
+
+        
         
         contentPane.add(l);
 
@@ -141,7 +166,7 @@ public class GUI {
     
     return rand;
 
-    
+
     
  
     }
