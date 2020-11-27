@@ -41,18 +41,20 @@ public class GUI {
         new GUI();
     }
 
-    public void test(Graphics g)
+    public void test()
     
     {
-        Image bgImage= Toolkit.getDefaultToolkit().getImage("wallpaper_adrift.jpg");
+        
+        //Image bgImage= Toolkit.getDefaultToolkit().getImage("wallpaper_adrift.jpg");
 
         
         f = new JFrame("TestWindow");
-        //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setSize(200,200);
         f.setVisible(true);
         f.setBackground(new Color(255,255,255));
-        g.drawImage(Image, 0, 0, null);
+        //g.drawImage(Image, 0, 0, null);
+        
 
         
         
