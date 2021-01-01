@@ -44,24 +44,15 @@ public class GUI {
     public void test()
     
     {
-        
-        //Image bgImage= Toolkit.getDefaultToolkit().getImage("wallpaper_adrift.jpg");
 
         
         f = new JFrame("TestWindow");
+        f.setBackground(Color.green);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setSize(200,200);
         f.setVisible(true);
-        f.setBackground(new Color(255,255,255));
-        //g.drawImage(Image, 0, 0, null);
+        f.setBackground(Color.green);
         
-
-        
-        
-        
-        
-
-
         p = new JPanel();
         p.setLayout(new FlowLayout(FlowLayout.CENTER));
 

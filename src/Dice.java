@@ -1,31 +1,38 @@
+import java.util.Random;
 
 
+public class Dice {
+    private boolean roll;
+    private Integer count;
+    private Random r = new Random();
 
-/*public class Dice{
+     public Dice()
+     {
+         this.roll= true;
+         this.count = 0;
+     }
+// Rückgaben der Augenzahl des Würfels
+     public int getCount(){
 
-    public static void main(String args[]) 
-    { 
-        
-            
-        
-        // define the range 
-        int max = 6; 
-        int min = 1; 
-        int range = max - min + 1; 
+        return this.count;
+     }
+// Rückgabe ob der würfel gewürfelt wird
+     public boolean getRoll(){
+
+        return this.roll;
+     }
+// Update ob der Wüfel gewürfelt werden oll
+     public void setRoll(boolean pRoll){
+
+        this.roll = pRoll;
+
+     }
+
+    public void rolling()
+    {          
   
         // generate random numbers within 1 to 6 
-        for (int i = 0; i < 5; i++) { 
-            int rand = (int)(Math.random() * range) + min; 
-  
-            
-            System.out.println(rand);
-         
-        }
-        System.out.println("Done"); 
-        
+    
+         this.count = r.nextInt(6) + 1;
     }
-*/
-
-
-
-
+}
