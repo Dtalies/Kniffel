@@ -4,7 +4,7 @@ public class DiceCup {
     private Integer diceCount = 5;
 
     //Array aus Würfeln
-    private Dice[] dices = new Dice[diceCount];
+    public Dice[] dices = new Dice[diceCount];
 
 
     public DiceCup(int pDiceCount){
