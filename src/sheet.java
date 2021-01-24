@@ -1,6 +1,5 @@
 import java.util.Arrays;
 
-import jdk.javadoc.internal.doclets.formats.html.resources.standard_zh_CN;
 
 public class sheet {
 
