@@ -16,6 +16,10 @@ public class Dice {
 
         return this.count;
      }
+
+     public void setCount(int pCount){
+          this.count = pCount;
+     }
 // Rückgabe ob der würfel gewürfelt wird
      public boolean getRoll(){
 

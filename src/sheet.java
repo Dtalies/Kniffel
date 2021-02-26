@@ -3,9 +3,20 @@ import java.util.Arrays;
 
 public class sheet {
 
-    
+    public static   int[]  sort(DiceCup diceCup){
+        
+        int[] tempDices = new int[5];
+
+        for(int i = 0; i<diceCup.dices.length ; i++){
+            tempDices[i] = diceCup.dices[i].getCount();
+        }
+        Arrays.sort(tempDices);
+
+        return tempDices;
+    }
     public static int adding(int addnumber , DiceCup diceCup) 
     {
+        
         int[] tempDices = new int[5];
 
         for(int i = 0; i<diceCup.dices.length ; i++){
@@ -81,5 +92,55 @@ public class sheet {
         }
         return sumTop;
     }
+
+    public static boolean all(DiceCup diceCup)
+    {
+        int[] sorted = sheet.sort(diceCup);
+
+        boolean all = false;
+        for (int i=1; i < diceCup.dices.length; i++) 
+        
+        {
+            if(sorted[i] == sorted[0])
+            {
+                all = true;
+            }
+            else{
+                all = false;
+            }
+
+        }
+        return all;
+    }
+
+    public static boolean fullHouse(DiceCup diceCup)
+    {
+        int[] sorted = sheet.sort(diceCup);
+
+        boolean fullHouse = false;
+        // for (int i=0; i < diceCup.dices.length; i++)
+
+            if(sorted[0] == sorted[1] && sorted[0] == sorted[2] && sorted[3] == sorted[4])
+            {
+                fullHouse = true ;
+            }
+            else{
+                if (sorted[0] == sorted[1] && sorted[2] == sorted[3] && sorted[2] == sorted[4])
+                {
+                    fullHouse = true;
+                }
+            }
+             
+        // }
+        return fullHouse;
+    }
+    //public static boolean shortstreet(DiceCup diceCup)
+    //{
+    //    int[] sorted = sheet.sort(diceCup);
+    //    for (int i=0; i < diceCup.dices.length; i++)
+//
+  //      if(sorted[i]== sorted[i+1]+1 && sorted[i+1] = sorted=)
+    //}
+    }
     
-}
+

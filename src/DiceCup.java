@@ -37,6 +37,15 @@ public class DiceCup {
     }
 
 }
+public void mock()
+{
+    dices[0].setCount(1);
+    dices[1].setCount(1);
+    dices[2].setCount(1);
+    dices[3].setCount(1);
+    dices[4].setCount(1);
+
+}
 }
 
 
