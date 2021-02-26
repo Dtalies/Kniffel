@@ -1,5 +1,7 @@
 import java.util.Arrays;
 
+import javax.lang.model.util.ElementScanner14;
+
 
 public class sheet {
 
@@ -134,13 +136,28 @@ public class sheet {
         // }
         return fullHouse;
     }
-    //public static boolean shortstreet(DiceCup diceCup)
-    //{
-    //    int[] sorted = sheet.sort(diceCup);
-    //    for (int i=0; i < diceCup.dices.length; i++)
-//
-  //      if(sorted[i]== sorted[i+1]+1 && sorted[i+1] = sorted=)
+    public static boolean shortstreet(DiceCup diceCup)
+    {
+        boolean shortstreet = false;
+        int[] sorted = sheet.sort(diceCup);
+        //for(int i=0; i < diceCup.dices.length; i++){
+
+        if(sorted[0]+1== sorted[1] && sorted[1]+1 == sorted[2] && sorted[2]+1 == sorted[3] && sorted [3]+1== sorted[4])
+        {
+            shortstreet = true;
+        }
+        else
+        {
+            shortstreet = false;
+        }
+        if (sorted[1]+1== sorted[2] && sorted[2]+1 == sorted[3] && sorted[3]+1 == sorted[4]){
+            shortstreet = true;
+        }
+        
     //}
+    return shortstreet;
     }
+    public static boolean longstreet
+}
     
 
