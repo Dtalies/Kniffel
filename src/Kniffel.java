@@ -13,7 +13,7 @@ public static void main(String[] args) {
         System.out.println(diceCup.getCup()[i].getCount());
     }
 
-    System.out.println(sheet.all(diceCup));
+    System.out.println(sheet.kniffel(diceCup));
 }
 
 

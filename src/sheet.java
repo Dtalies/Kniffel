@@ -2,6 +2,8 @@ import java.util.Arrays;
 
 import javax.lang.model.util.ElementScanner14;
 
+//Scoresheet.setValue("fullhouse",fulehouse())
+
 
 public class sheet {
 
@@ -76,88 +78,103 @@ public class sheet {
         return sumSixes;
     }
 
-    public static int sumNoBonus(int sumSixes , int sumFives , int sumFours, int sumThrees, int sumTwos, int sumOnes)
-    {
-        int sumNoBonus = 0;
-        sumNoBonus = sumSixes + sumFives + sumFours + sumThrees + sumTwos + sumOnes ;
-        return sumNoBonus;
-    }
-    public static int bonusPoints(int sumNoBonus)
-    {
-        int sumTop = 0;
-        if(sumNoBonus >= 63)
-        {
-            sumTop = sumNoBonus + 35;
-        }
-        else{
-            sumTop = sumNoBonus;
-        }
-        return sumTop;
-    }
 
-    public static boolean all(DiceCup diceCup)
+
+    public static int kniffel(DiceCup diceCup)
     {
         int[] sorted = sheet.sort(diceCup);
 
-        boolean all = false;
+        int kniffel = 0;
         for (int i=1; i < diceCup.dices.length; i++) 
         
         {
             if(sorted[i] == sorted[0])
             {
-                all = true;
+                kniffel = 50;
             }
             else{
-                all = false;
+                kniffel = 0;
             }
 
         }
-        return all;
+        return kniffel;
     }
 
-    public static boolean fullHouse(DiceCup diceCup)
+    public static int fullHouse(DiceCup diceCup)
     {
         int[] sorted = sheet.sort(diceCup);
 
-        boolean fullHouse = false;
-        // for (int i=0; i < diceCup.dices.length; i++)
-
+        int fullHouse = 0;
+        
             if(sorted[0] == sorted[1] && sorted[0] == sorted[2] && sorted[3] == sorted[4])
             {
-                fullHouse = true ;
+                fullHouse = 25 ;
             }
-            else{
-                if (sorted[0] == sorted[1] && sorted[2] == sorted[3] && sorted[2] == sorted[4])
-                {
-                    fullHouse = true;
-                }
+            
+            if (sorted[0] == sorted[1] && sorted[2] == sorted[3] && sorted[2] == sorted[4])
+            {
+                fullHouse = 25;
             }
+    
              
-        // }
+        
         return fullHouse;
     }
-    public static boolean shortstreet(DiceCup diceCup)
-    {
-        boolean shortstreet = false;
-        int[] sorted = sheet.sort(diceCup);
-        //for(int i=0; i < diceCup.dices.length; i++){
 
-        if(sorted[0]+1== sorted[1] && sorted[1]+1 == sorted[2] && sorted[2]+1 == sorted[3] && sorted [3]+1== sorted[4])
+    public static int shortstreet(DiceCup diceCup)
+    {
+        int shortstreet = 0;
+        int[] sorted = sheet.sort(diceCup);
+        
+        if(sorted[0]+1== sorted[1] && sorted[1]+1 == sorted[2] && sorted[2]+1 == sorted[3])
         {
-            shortstreet = true;
+            shortstreet = 30;
         }
-        else
+    
+        if (sorted[1]+1== sorted[2] && sorted[2]+1 == sorted[3] && sorted[3]+1 == sorted[4])
         {
-            shortstreet = false;
-        }
-        if (sorted[1]+1== sorted[2] && sorted[2]+1 == sorted[3] && sorted[3]+1 == sorted[4]){
-            shortstreet = true;
+            shortstreet = 30;
         }
         
-    //}
+    
     return shortstreet;
     }
-    public static boolean longstreet
+
+    public static int longstreet(DiceCup diceCup){
+    int longstreet = 0;
+        int[] sorted = sheet.sort(diceCup);
+        
+        if(sorted[0]+1== sorted[1] && sorted[1]+1 == sorted[2] && sorted[2]+1 == sorted[3] && sorted [3]+1== sorted[4])
+        {
+            longstreet = 40;
+        }
+        return longstreet;
+}
+
+    public static int chance(DiceCup diceCup)
+    {
+        
+        return diceCup.dices[0].getCount()+ diceCup.dices[1].getCount()+ diceCup.dices[2].getCount()+ diceCup.dices[3].getCount()+ diceCup.dices[4].getCount();
+    }
+
+
+    public static int rowOfThree(DiceCup diceCup)
+    {
+        int rowOfThree = 0;
+        int[] sorted = sheet.sort(diceCup);
+        if(sorted[0] ==sorted[1] && sorted[0] == sorted[2]) rowOfThree = sorted[0]+sorted[1]+sorted[2];
+        if(sorted[1] ==sorted[2] && sorted[1] == sorted[3]) rowOfThree = sorted[1]+sorted[2]+sorted[3];
+        if(sorted[2] ==sorted[3] && sorted[2] == sorted[4]) rowOfThree = sorted[2]+sorted[3]+sorted[4];
+        return rowOfThree;
+    }
+    public static int rowOfFour(DiceCup diceCup)
+    {
+        int rowOfFour = 0;
+        int[] sorted = sheet.sort(diceCup);
+        if(sorted[0] ==sorted[1] && sorted[0] == sorted[2] && sorted[0] == sorted[3]) rowOfFour = sorted[0]+sorted[1]+sorted[2]+sorted[3];
+        if(sorted[1] ==sorted[2] && sorted[1] == sorted[3] && sorted[1] == sorted[4]) rowOfFour = sorted[1]+sorted[2]+sorted[3]+sorted[4];
+        return rowOfFour;
+    }
 }
     
 
