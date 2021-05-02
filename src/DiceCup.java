@@ -6,6 +6,8 @@ public class DiceCup {
     //Array aus Würfeln
     public Dice[] dices = new Dice[diceCount];
 
+    public int timesrolled = 0;
+
 
     public DiceCup(int pDiceCount){
 
@@ -45,6 +47,19 @@ public void mock()
     dices[3].setCount(1);
     dices[4].setCount(1);
 
+}
+
+public void setTimesRolled()
+{
+    this.timesrolled = timesrolled+1;
+}
+public int getTimesRolled()
+{
+    return timesrolled;
+}
+public void clearTimesRolled()
+{
+    this.timesrolled = 0;
 }
 }
 

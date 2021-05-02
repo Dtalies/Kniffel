@@ -1,13 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 
 public class Gui implements ActionListener {
     
@@ -64,6 +61,7 @@ public class Gui implements ActionListener {
         
         
         frame.setVisible(true);
+        frame.setLocation(500, 500);
     }
     public void actionPerformed (ActionEvent ae){
         if(ae.getSource() == i1)
@@ -83,7 +81,16 @@ public class Gui implements ActionListener {
             if(n == JOptionPane.YES_OPTION)
             {
                 frame.dispose();
+                System.exit(0);
             }
+
+        }
+        if(ae.getSource() == i3)
+        {
+            startGame(spielerliste);
+
+
+            
 
         }
         if(ae.getSource() == i4){
@@ -121,9 +128,101 @@ public class Gui implements ActionListener {
         }
     }
 
+        public void startGame(playerList sPlayerList)
+    {
 
+        List<JFrame> playerFrame = new ArrayList<>();
+
+
+        for(int i = 0; i<sPlayerList.getSize();i++)
+        {
+            JFrame playFrame = new JFrame();
+            playFrame.setDefaultCloseOperation(0);
+            playFrame.setSize(900,900);   
+            playFrame.setTitle(sPlayerList.players.get(i).getName());
+            playFrame.setName(Integer.toString(i));
+            playFrame.setVisible(false);
+            playFrame.setLocation(100, 100);
+
+            JPanel p1 = new JPanel();
+            p1.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+            JLabel[] dices = new JLabel[5];
+
+            for(int d = 0; d<5; d++)
+            {
+                JLabel l1 = new JLabel();
+            
+                l1.setSize(new Dimension(50, 50));
+                l1.setName(Integer.toString(d));
+                l1.setText(Integer.toString(sPlayerList.players.get(i).diceCup.dices[d].getCount()));
+                l1.setLocation(100+d*100, 100);
+                l1.setVisible(true);
+                
+                dices[d] = l1;
+            }
+                for(int u = 0; u<5;u++)
+                {
+                    p1.add(dices[u]);
+                }
+                playFrame.add(p1);
+            
+
+
+            JButton b = new JButton("Finish");
+            
+            b.setBackground(Color.black);
+            b.setForeground(Color.white);
+            b.setLocation(200, 200);
+            b.setSize(new Dimension(100,100));
+            b.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    playFrame.setVisible(false);
+                    sPlayerList.players.get(0).diceCup.clearTimesRolled();
+                }
+            });
+            p1.add(b);
+
+            JButton b1 = new JButton("Roll");
+            
+                b1.setBackground(Color.black);
+                b1.setForeground(Color.white);
+                b1.setSize(new Dimension(100,100));
+                b1.addActionListener(new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
+                    {
+
+                        sPlayerList.players.get(0).diceCup.shake();
+                        for (int p = 0 ; p<5 ; p++)
+                        {
+                        dices[p].setText(Integer.toString(sPlayerList.players.get(0).diceCup.dices[p].getCount()));
+                        sPlayerList.players.get(0).diceCup.setTimesRolled();
+
+                        
+                    }
+                }
+            });
+            
+            
+            p1.add(b1);
+            //if(sPlayerList.players.get(0).diceCup.getTimesRolled()>= 3){ p1.remove(b1);}
+                
+            
+            playerFrame.add(playFrame);
+        }
+        
+        
+        for(int i = 0; i<sPlayerList.getSize();i++)
+        {
+            playerFrame.get(i).setVisible(true);
+            
+            
+        }
+    }
     
-
-
+    
  }
 

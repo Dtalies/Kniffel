@@ -18,6 +18,13 @@ public class playerList {
         }
         return result;
     }
+
+    public int getSize()
+
+{
+    return players.size();
+
+}
 }
 
 
