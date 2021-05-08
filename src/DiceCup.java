@@ -29,7 +29,7 @@ public class DiceCup {
 
         for(int i = 0; i<this.diceCount ; i++){
 
-            if(dices[i].getRoll()){
+            if(dices[i].getRoll() == true){
 
                 dices[i].rolling();
 

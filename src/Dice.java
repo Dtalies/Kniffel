@@ -36,7 +36,9 @@ public class Dice {
     {          
   
         // generate random numbers within 1 to 6 
-    
+     
+     
          this.count = r.nextInt(6) + 1;
+     
     }
 }
