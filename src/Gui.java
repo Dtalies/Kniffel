@@ -1,4 +1,8 @@
+import javax.lang.model.util.ElementScanner14;
 import javax.swing.*;
+
+import org.graalvm.compiler.replacements.arraycopy.CheckcastArrayCopyCallNode;
+
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -70,8 +74,9 @@ public class Gui implements ActionListener {
             player p = new player();
             p.setName(name);
             spielerliste.add(p);
-            System.out.println(spielerliste.getContent());
-            
+             
+              JOptionPane.showMessageDialog(frame,"Der Spieler " + p.getName() + " wurde hinzugefügt");
+             
         }
         if(ae.getSource() == i2)
         {
@@ -136,6 +141,8 @@ public class Gui implements ActionListener {
 
         for(int i = 0; i<sPlayerList.getSize();i++)
         {
+            int truePlayer = i;
+
             JFrame playFrame = new JFrame();
             playFrame.setDefaultCloseOperation(0);
             playFrame.setSize(900,900);   
@@ -151,6 +158,7 @@ public class Gui implements ActionListener {
 
             for(int d = 0; d<5; d++)
             {
+                int truedice = d;
                 JLabel l1 = new JLabel();
             
                 l1.setSize(new Dimension(50, 50));
@@ -160,6 +168,33 @@ public class Gui implements ActionListener {
                 l1.setVisible(true);
                 
                 dices[d] = l1;
+
+                JCheckBox Checkroll = new JCheckBox();
+                Checkroll.setSize(new Dimension(20,20));
+                Checkroll.setLocation(200+d*100, 100);
+                
+
+                Checkroll.addItemListener(e -> {
+
+                    if(e.getStateChange() == ItemEvent.SELECTED)
+                    {
+                        sPlayerList.players.get(truePlayer).diceCup.dices[truedice].setRoll(false);  
+                    }
+                    else
+                    {
+                        sPlayerList.players.get(truePlayer).diceCup.dices[truedice].setRoll(true);
+                    }
+
+                });
+
+                Checkroll.setVisible(true);
+                p1.add(Checkroll);
+                
+                // if(sPlayerList.players.get(truePlayer).diceCup.getTimesRolled() >= 3)
+                // {
+                // p1.remove(Checkroll);
+                // }
+                
             }
                 for(int u = 0; u<5;u++)
                 {
@@ -194,21 +229,24 @@ public class Gui implements ActionListener {
                 {
                     public void actionPerformed(ActionEvent e)
                     {
+                        sPlayerList.players.get(truePlayer).playerFrame.playFrame.p1.checkroll.setVisible(true);
+
+                       // if(sPlayerList.players.get(truePlayer).diceCup.getTimesRolled() == 3);
+                       // { 
+                         //   p1.remove(b1);
+                       // }
+                        
 
                         sPlayerList.players.get(0).diceCup.shake();
                         for (int p = 0 ; p<5 ; p++)
                         {
-                        dices[p].setText(Integer.toString(sPlayerList.players.get(0).diceCup.dices[p].getCount()));
-                        sPlayerList.players.get(0).diceCup.setTimesRolled();
-
+                        dices[p].setText(Integer.toString(sPlayerList.players.get(truePlayer).diceCup.dices[p].getCount()));
+                        sPlayerList.players.get(truePlayer).diceCup.setTimesRolled();
                         
-                    }
+                    }   
                 }
             });
-            
-            
             p1.add(b1);
-            //if(sPlayerList.players.get(0).diceCup.getTimesRolled()>= 3){ p1.remove(b1);}
                 
             
             playerFrame.add(playFrame);
