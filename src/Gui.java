@@ -1,12 +1,13 @@
 
+import javax.lang.model.util.ElementScanner14;
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
-import java.util.jar.Attributes.Name;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
+//import java.util.thread;
 
 public class Gui implements ActionListener {
     
@@ -16,9 +17,10 @@ public class Gui implements ActionListener {
     public Gui(){
 
         createMainFrame();
-        
 
     }
+
+    
      JMenuItem i1, i2, i3, i4, i5;
     
     private static JFrame frame = new JFrame();
@@ -133,22 +135,23 @@ public class Gui implements ActionListener {
         }
     }
 
-        public void startGame(playerList sPlayerList)
+    public void startGame(playerList sPlayerList)
     {
 
         List<JFrame> playerFrame = new ArrayList<>();
-
+        sPlayerList.players.get(0).setTurn(true);
+        
 
         for(int i = 0; i<sPlayerList.getSize();i++)
         {
             int truePlayer = i;
-
+            
             JFrame playFrame = new JFrame();
             playFrame.setDefaultCloseOperation(0);
             playFrame.setSize(900,900);   
             playFrame.setTitle(sPlayerList.players.get(i).getName());
-            playFrame.setName(Integer.toString(i));
-            playFrame.setVisible(false);
+            playFrame.setName(Integer.toString(i));            
+            playFrame.setVisible(true);
             playFrame.setLocation(100, 100);
 
             JPanel p1 = new JPanel();
@@ -191,7 +194,14 @@ public class Gui implements ActionListener {
                 b2.setName(sPlayerList.players.get(truePlayer).scoresheet.getTitle(s));
                 b2.setText("Eintragen");
                 b2.setLocation(100+s*100, 100);
-                b2.setVisible(true);
+                if(trueScore== 6 || trueScore==7 || trueScore==15 || trueScore==16)
+                {
+                b2.setVisible(false);
+                }
+                else
+                {
+                    b2.setVisible(true);
+                }
                 b2.addActionListener(new ActionListener()
             {
                 public void actionPerformed(ActionEvent e)
@@ -274,26 +284,52 @@ public class Gui implements ActionListener {
                             p1.revalidate(); 
                             p1.repaint(); 
                             break;
+                            
                         case "Kniffel" : 
                             sPlayerList.players.get(truePlayer).scoresheet.setScore(trueScore ,sheet.kniffel(sPlayerList.players.get(truePlayer).diceCup)); 
                             scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoresheet.getValue(sPlayerList.players.get(truePlayer).scoresheet.getTitle(trueScore))));
                             p1.revalidate(); 
                             p1.repaint(); 
+                            sPlayerList.players.get(truePlayer).setTurn(false);
+                            if(truePlayer== sPlayerList.getSize()-1)
+                            {
+                                sPlayerList.players.get(0).setTurn(true);
+                            }
+                            else
+                            {
+                            sPlayerList.players.get(truePlayer+1).setTurn(true);
+                            }
                             break;
                     
-                        default : break;
+                        default : 
+                        break;
                     }
-                    scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoresheet.getValue(trueScore,sPlayerList.players.get(truePlayer).scoresheet.bonusPoints());
+                    
+                    //Thread.sleep(1000);
                     playFrame.setVisible(false);
                     sPlayerList.players.get(truePlayer).diceCup.clearTimesRolled();
 
+                    sPlayerList.players.get(truePlayer).scoresheet.setScore(6 , 0); 
+                    scores[6].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoresheet.getValue(sPlayerList.players.get(truePlayer).scoresheet.getTitle(6))));
+
+                    sPlayerList.players.get(truePlayer).scoresheet.setScore(7 , 0); 
+                    scores[7].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoresheet.getValue(sPlayerList.players.get(truePlayer).scoresheet.getTitle(7))));
+
+                    sPlayerList.players.get(truePlayer).scoresheet.setScore(15 , 0);
+                    scores[15].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoresheet.getValue(sPlayerList.players.get(truePlayer).scoresheet.getTitle(15))));
+
+                    sPlayerList.players.get(truePlayer).scoresheet.setScore(16 , 0); 
+                    scores[16].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoresheet.getValue(sPlayerList.players.get(truePlayer).scoresheet.getTitle(16))));
+ 
+                    p1.revalidate(); 
+                    p1.repaint();
+                    
                 }
             });
                 setScores[s] = b2;
                 p1.add(b2);
-
-
             }
+            
 
             JLabel[] dices = new JLabel[5];
             JCheckBox[] checkroll = new JCheckBox[5];
@@ -409,12 +445,20 @@ public class Gui implements ActionListener {
             playerFrame.add(playFrame);
         }
         
-        
-        for(int i = 0; i<sPlayerList.getSize();i++)
-        {
-            playerFrame.get(i).setVisible(true);
-            
-            
+        int q = 0;
+        while( q!= 99){
+         for(int z = 0; z<sPlayerList.getSize();z++)
+         {
+             if(sPlayerList.players.get(z).getTurn() == true)
+             {
+             playerFrame.get(z).setVisible(true);
+             }
+             else
+             {
+                 playerFrame.get(z).setVisible(false);
+             }
+             
+         }
         }
     }
     
