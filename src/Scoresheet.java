@@ -9,7 +9,74 @@ public class Scoresheet{
         }
         return false;
     }
+
+    public int getlength()
+    {
+        return score.length;
+    }
     
+    public String getTitle(int i)
+    {
+        String title = "";
+        switch (i) {
+            case 0: title = "Einer";
+                
+                break;
+            case 1: title = "Zweier";
+                 
+                break;
+            case 2: title ="Dreier";
+                
+                break;
+            case 3: title ="Vierer";
+                
+                break;
+            case 4: title ="Fuenfer";
+                
+                break;
+            case 5: title ="Sechser";
+                
+                break;
+            case 6: title ="noBonus";
+                
+                break;
+            case 7: title ="Bonus";
+                
+                break;
+            case 8: title ="3er";
+                 
+                break;
+            case 9: title ="4er";
+               
+                break;
+            case 10: title ="Fullhouse";
+                
+                break;
+            case 11: title ="Kleine Strasse";
+                 
+                break;
+            case 12: title ="Grosse Strasse";
+                
+                break;
+            case 13: title ="Kniffel";
+                
+                break;
+            case 14: title ="Chance";
+                
+                break;
+            case 15: title ="Unten";
+                 
+                break;
+            case 16: title ="Insgesamt";
+                
+                break;
+            default: 
+                break;     
+        }
+        return title;
+    }
+
+
     public boolean setScore(int i, int value)
     {
         boolean worked = false;
