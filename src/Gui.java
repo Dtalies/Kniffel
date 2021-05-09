@@ -1,17 +1,17 @@
-import javax.lang.model.util.ElementScanner14;
+
 import javax.swing.*;
-
-import org.graalvm.compiler.replacements.arraycopy.CheckcastArrayCopyCallNode;
-
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+import java.util.jar.Attributes.Name;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 
 public class Gui implements ActionListener {
     
+    final String h = "Hilfe";
+    final String c = "Credits";
     playerList spielerliste = new playerList();
     public Gui(){
 
@@ -103,11 +103,11 @@ public class Gui implements ActionListener {
             JFrame hilfe = new JFrame();
             hilfe.setDefaultCloseOperation(2); // JFrame.DISPOSE_ON_CLOSE
             hilfe.setSize(300,300);   
-            hilfe.setTitle("Hilfe");
-            hilfe.setName("Hilfe"); 
+            hilfe.setTitle(h);
+            hilfe.setName(h); 
 
             
-            JTextArea t1 = new JTextArea("Hilfe");
+            JTextArea t1 = new JTextArea(h);
             
             hilfe.add(t1);
 
@@ -120,8 +120,8 @@ public class Gui implements ActionListener {
             JFrame credits = new JFrame();
             credits.setDefaultCloseOperation(2); // JFrame.DISPOSE_ON_CLOSE
             credits.setSize(300,300);   
-            credits.setTitle("credits");
-            credits.setName("credits"); 
+            credits.setTitle(c);
+            credits.setName(c); 
 
             
             JTextArea t1 = new JTextArea("credits");
@@ -154,7 +154,149 @@ public class Gui implements ActionListener {
             JPanel p1 = new JPanel();
             p1.setLayout(new FlowLayout(FlowLayout.CENTER));
 
+
+            JLabel[] scoresName = new JLabel[sPlayerList.players.get(i).scoresheet.getlength()];
+            JLabel[] scores = new JLabel[sPlayerList.players.get(i).scoresheet.getlength()];
+            JButton[] setScores = new JButton[sPlayerList.players.get(i).scoresheet.getlength()];
+
+            for(int s = 0 ; s<sPlayerList.players.get(i).scoresheet.getlength()-1; s++)
+            {
+                int trueScore = s;
+
+                JLabel l2 = new JLabel();
+                l2.setSize(new Dimension(50, 50));
+                l2.setName(Integer.toString(s));
+                l2.setText(sPlayerList.players.get(truePlayer).scoresheet.getTitle(s));
+                l2.setLocation(100+s*100, 100);
+                l2.setVisible(true);
+                scoresName[s] = l2;
+                p1.add(l2);
+
+                JLabel l3 = new JLabel();
+                l3.setSize(new Dimension(50, 50));
+                l3.setName(Integer.toString(s));
+                if (sPlayerList.players.get(truePlayer).scoresheet.getValue(sPlayerList.players.get(truePlayer).scoresheet.getTitle(s)) == -1) {
+                    l3.setText("0");
+                }
+                else {
+                    l3.setText(Integer.toString(sPlayerList.players.get(truePlayer).scoresheet.getValue(sPlayerList.players.get(truePlayer).scoresheet.getTitle(s))));
+                }
+                l3.setLocation(100+s*100, 100);
+                l3.setVisible(true);
+                scores[s] = l3;
+                p1.add(l3);
+
+                JButton b2 = new JButton();
+                b2.setSize(new Dimension(50, 50));
+                b2.setName(sPlayerList.players.get(truePlayer).scoresheet.getTitle(s));
+                b2.setText("Eintragen");
+                b2.setLocation(100+s*100, 100);
+                b2.setVisible(true);
+                b2.addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    JButton b3 = (JButton)e.getSource();
+                    String t = b3.getName();
+
+                    switch(t)
+                    {
+                        case "Einer" : 
+                            sPlayerList.players.get(truePlayer).scoresheet.setScore(trueScore ,sheet.addOnes(sPlayerList.players.get(truePlayer).diceCup)); 
+                            scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoresheet.getValue(sPlayerList.players.get(truePlayer).scoresheet.getTitle(trueScore))));
+                            p1.revalidate(); 
+                            p1.repaint(); 
+                            break;
+                        case "Zweier" : 
+                            sPlayerList.players.get(truePlayer).scoresheet.setScore(trueScore ,sheet.addTwos(sPlayerList.players.get(truePlayer).diceCup)); 
+                            scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoresheet.getValue(sPlayerList.players.get(truePlayer).scoresheet.getTitle(trueScore))));
+                            p1.revalidate(); 
+                            p1.repaint(); 
+                            break;
+                        case "Dreier" : 
+                            sPlayerList.players.get(truePlayer).scoresheet.setScore(trueScore ,sheet.addThrees(sPlayerList.players.get(truePlayer).diceCup)); 
+                            scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoresheet.getValue(sPlayerList.players.get(truePlayer).scoresheet.getTitle(trueScore))));
+                            p1.revalidate(); 
+                            p1.repaint(); 
+                            break;
+                        case "Vierer" : 
+                            sPlayerList.players.get(truePlayer).scoresheet.setScore(trueScore ,sheet.addFours(sPlayerList.players.get(truePlayer).diceCup)); 
+                            scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoresheet.getValue(sPlayerList.players.get(truePlayer).scoresheet.getTitle(trueScore))));
+                            p1.revalidate(); 
+                            p1.repaint(); 
+                            break;
+                        case "Fuenfer" : 
+                            sPlayerList.players.get(truePlayer).scoresheet.setScore(trueScore ,sheet.addFives(sPlayerList.players.get(truePlayer).diceCup)); 
+                            scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoresheet.getValue(sPlayerList.players.get(truePlayer).scoresheet.getTitle(trueScore))));
+                            p1.revalidate(); 
+                            p1.repaint(); 
+                            break;
+                        case "Sechser" : 
+                            sPlayerList.players.get(truePlayer).scoresheet.setScore(trueScore ,sheet.addSixes(sPlayerList.players.get(truePlayer).diceCup)); 
+                            scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoresheet.getValue(sPlayerList.players.get(truePlayer).scoresheet.getTitle(trueScore))));
+                            p1.revalidate(); 
+                            p1.repaint(); 
+                            break;
+                        
+                        case "3er" : 
+                            sPlayerList.players.get(truePlayer).scoresheet.setScore(trueScore ,sheet.rowOfThree(sPlayerList.players.get(truePlayer).diceCup)); 
+                            scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoresheet.getValue(sPlayerList.players.get(truePlayer).scoresheet.getTitle(trueScore))));
+                            p1.revalidate(); 
+                            p1.repaint(); 
+                            break;
+                        case "4er" : 
+                            sPlayerList.players.get(truePlayer).scoresheet.setScore(trueScore ,sheet.rowOfFour(sPlayerList.players.get(truePlayer).diceCup)); 
+                            scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoresheet.getValue(sPlayerList.players.get(truePlayer).scoresheet.getTitle(trueScore))));
+                            p1.revalidate(); 
+                            p1.repaint(); 
+                            break;
+                        case "Fullhouse" : 
+                            sPlayerList.players.get(truePlayer).scoresheet.setScore(trueScore ,sheet.fullHouse(sPlayerList.players.get(truePlayer).diceCup)); 
+                            scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoresheet.getValue(sPlayerList.players.get(truePlayer).scoresheet.getTitle(trueScore))));
+                            p1.revalidate(); 
+                            p1.repaint(); 
+                            break;
+                        case "Kleine Strasse" : 
+                            sPlayerList.players.get(truePlayer).scoresheet.setScore(trueScore ,sheet.shortstreet(sPlayerList.players.get(truePlayer).diceCup)); 
+                            scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoresheet.getValue(sPlayerList.players.get(truePlayer).scoresheet.getTitle(trueScore))));
+                            p1.revalidate(); 
+                            p1.repaint(); 
+                            break;
+                        case "Große Straße" : 
+                            sPlayerList.players.get(truePlayer).scoresheet.setScore(trueScore ,sheet.longstreet(sPlayerList.players.get(truePlayer).diceCup)); 
+                            scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoresheet.getValue(sPlayerList.players.get(truePlayer).scoresheet.getTitle(trueScore))));
+                            p1.revalidate(); 
+                            p1.repaint(); 
+                            break;
+                        case "Chance" : 
+                            sPlayerList.players.get(truePlayer).scoresheet.setScore(trueScore ,sheet.chance(sPlayerList.players.get(truePlayer).diceCup)); 
+                            scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoresheet.getValue(sPlayerList.players.get(truePlayer).scoresheet.getTitle(trueScore))));
+                            p1.revalidate(); 
+                            p1.repaint(); 
+                            break;
+                        case "Kniffel" : 
+                            sPlayerList.players.get(truePlayer).scoresheet.setScore(trueScore ,sheet.kniffel(sPlayerList.players.get(truePlayer).diceCup)); 
+                            scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoresheet.getValue(sPlayerList.players.get(truePlayer).scoresheet.getTitle(trueScore))));
+                            p1.revalidate(); 
+                            p1.repaint(); 
+                            break;
+                    
+                        default : break;
+                    }
+                    scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoresheet.getValue(trueScore,sPlayerList.players.get(truePlayer).scoresheet.bonusPoints());
+                    playFrame.setVisible(false);
+                    sPlayerList.players.get(truePlayer).diceCup.clearTimesRolled();
+
+                }
+            });
+                setScores[s] = b2;
+                p1.add(b2);
+
+
+            }
+
             JLabel[] dices = new JLabel[5];
+            JCheckBox[] checkroll = new JCheckBox[5];
 
             for(int d = 0; d<5; d++)
             {
@@ -163,18 +305,17 @@ public class Gui implements ActionListener {
             
                 l1.setSize(new Dimension(50, 50));
                 l1.setName(Integer.toString(d));
-                l1.setText(Integer.toString(sPlayerList.players.get(i).diceCup.dices[d].getCount()));
+                l1.setText(Integer.toString(sPlayerList.players.get(truePlayer).diceCup.dices[truedice].getCount()));
                 l1.setLocation(100+d*100, 100);
                 l1.setVisible(true);
                 
                 dices[d] = l1;
-
-                JCheckBox Checkroll = new JCheckBox();
-                Checkroll.setSize(new Dimension(20,20));
-                Checkroll.setLocation(200+d*100, 100);
+                checkroll[d] = new JCheckBox();
+                checkroll[d].setSize(new Dimension(20,20));
+                checkroll[d].setLocation(200+d*100, 100);
                 
 
-                Checkroll.addItemListener(e -> {
+                checkroll[d].addItemListener(e -> {
 
                     if(e.getStateChange() == ItemEvent.SELECTED)
                     {
@@ -187,12 +328,12 @@ public class Gui implements ActionListener {
 
                 });
 
-                Checkroll.setVisible(true);
-                p1.add(Checkroll);
+                checkroll[d].setVisible(false);
+                p1.add(checkroll[d]);
                 
                 // if(sPlayerList.players.get(truePlayer).diceCup.getTimesRolled() >= 3)
                 // {
-                // p1.remove(Checkroll);
+                // p1.remove(checkroll[d]);
                 // }
                 
             }
@@ -204,21 +345,23 @@ public class Gui implements ActionListener {
             
 
 
-            JButton b = new JButton("Finish");
+            // JButton b = new JButton("Finish");
             
-            b.setBackground(Color.black);
-            b.setForeground(Color.white);
-            b.setLocation(200, 200);
-            b.setSize(new Dimension(100,100));
-            b.addActionListener(new ActionListener()
-            {
-                public void actionPerformed(ActionEvent e)
-                {
-                    playFrame.setVisible(false);
-                    sPlayerList.players.get(0).diceCup.clearTimesRolled();
-                }
-            });
-            p1.add(b);
+            // b.setBackground(Color.black);
+            // b.setForeground(Color.white);
+            // b.setLocation(200, 200);
+            // b.setSize(new Dimension(100,100));
+            // b.addActionListener(new ActionListener()
+            // {
+            //     public void actionPerformed(ActionEvent e)
+            //     {
+            //         playFrame.setVisible(false);
+            //         sPlayerList.players.get(truePlayer).diceCup.clearTimesRolled();
+                    
+
+            //     }
+            // });
+            // p1.add(b);
 
             JButton b1 = new JButton("Roll");
             
@@ -229,12 +372,22 @@ public class Gui implements ActionListener {
                 {
                     public void actionPerformed(ActionEvent e)
                     {
-                        sPlayerList.players.get(truePlayer).playerFrame.playFrame.p1.checkroll.setVisible(true);
+                        for(int d = 0; d<5 ;d++)
+                        {
+                        checkroll[d].setVisible(true);
+                        }
 
-                       // if(sPlayerList.players.get(truePlayer).diceCup.getTimesRolled() == 3);
-                       // { 
-                         //   p1.remove(b1);
-                       // }
+                        if(sPlayerList.players.get(truePlayer).diceCup.getTimesRolled() == 10)
+                        { 
+                           p1.remove(b1);
+
+                           for(int d = 0; d<5;d++)
+                           {
+                           p1.remove(checkroll[d]);
+                           }
+                           p1.revalidate();
+                           p1.repaint();
+                        }
                         
 
                         sPlayerList.players.get(0).diceCup.shake();
@@ -246,7 +399,11 @@ public class Gui implements ActionListener {
                     }   
                 }
             });
-            p1.add(b1);
+            if(sPlayerList.players.get(truePlayer).diceCup.getTimesRolled() != 15)
+                        { 
+                           p1.add(b1);
+                        }
+            
                 
             
             playerFrame.add(playFrame);
