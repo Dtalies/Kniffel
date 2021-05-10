@@ -1,30 +1,23 @@
 import java.util.*;
 
-public class playerList {
-    
-    List<player> players = new ArrayList<>();
+public class PlayerList {    
+    List<Player> players = new ArrayList<>();
 
-    public void add(player p)
-    {
+    public void add(Player p){
         players.add(p);
     }
 
-    public String getContent()
-    {
+    public String getContent(){
         String result ="";
-        for(int i = 0; i<players.size() ; i++)
-        {
+        for(int i = 0; i<players.size() ; i++){
             result += players.get(i).getName();
         }
         return result;
     }
 
-    public int getSize()
-
-{
-    return players.size();
-
-}
+    public int getSize(){
+        return players.size();
+    }
 }
 
 
