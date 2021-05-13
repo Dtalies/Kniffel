@@ -25,44 +25,6 @@ public class Sheet {
         return sum;
     }
 
-    //TODO: Die nächsten Funktionen können durch eine Funktion mittels Switch ersetzt werden.
-
-    public static int addOnes(DiceCup diceCup){
-        int sumOnes = 0;
-        sumOnes = adding(1 ,diceCup);
-        return sumOnes;
-    }
-
-    public static int addTwos(DiceCup diceCup){
-        int sumTwos = 0;
-        sumTwos = adding(2 ,diceCup);
-        return sumTwos;
-    }
-
-    public static int addThrees(DiceCup diceCup){
-        int sumThrees = 0;
-        sumThrees = adding(3 ,diceCup);
-        return sumThrees;
-    }
-
-    public static int addFours(DiceCup diceCup){
-        int sumFours = 0;
-        sumFours = adding(4 ,diceCup);
-        return sumFours;
-    }
-
-    public static int addFives(DiceCup diceCup){
-        int sumFives = 0;
-        sumFives = adding(5 ,diceCup);
-        return sumFives;
-    }
-
-    public static int addSixes(DiceCup diceCup){
-        int sumSixes = 0;
-        sumSixes = adding(6 ,diceCup);
-        return sumSixes;
-    }
-
     public static int kniffel(DiceCup diceCup){
         int[] sorted = Sheet.sort(diceCup);
         int kniffel = 0;

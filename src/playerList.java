@@ -3,8 +3,8 @@ import java.util.*;
 public class PlayerList {    
     List<Player> players = new ArrayList<>();
 
-    public void add(Player p){
-        players.add(p);
+    public void add(Player player){
+        players.add(player);
     }
 
     public String getContent(){

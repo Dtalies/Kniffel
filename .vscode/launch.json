@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Kniffel",
+            "request": "launch",
+            "mainClass": "Kniffel",
+            "projectName": "Kniffel_59d8f63b"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"

@@ -5,6 +5,7 @@ public class Dice {
     private Integer count;
     private Random r = new Random();
 
+    //Konstruktor des Würfels
      public Dice(){
          this.roll= true;
          this.count = 0;
@@ -15,8 +16,8 @@ public class Dice {
         return this.count;
      }
 
-     public void setCount(int pCount){
-          this.count = pCount;
+     public void setCount(int count){
+          this.count = count;
      }
 
      // Rückgabe ob der würfel gewürfelt wird
@@ -25,8 +26,8 @@ public class Dice {
      }
 
      // Update ob der Wüfel gewürfelt werden oll
-     public void setRoll(boolean pRoll){
-        this.roll = pRoll;
+     public void setRoll(boolean roll){
+        this.roll = roll;
      }
 
     public void rolling(){            

@@ -1,8 +1,10 @@
+
+
 public class ScoreSheet{
     private  int[] score=  {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
 
     private boolean set(int i,int value){
-        if(score[i]== -1){
+        if(score[i] <0){
             score[i] = value;
             return true;
         }
@@ -107,8 +109,9 @@ public class ScoreSheet{
 
     public int sumNoBonus(){
         int sumNoBonus = 0;
-        for (int i = 0; i < 5; i++)   
-            sumNoBonus += score[i];
+        for (int i = 0; i < 5; i++){
+            if(score[i] != -1)  sumNoBonus += score[i];
+        }
         return sumNoBonus;
     }
 
@@ -123,12 +126,20 @@ public class ScoreSheet{
     public int sumUnten(){
         int sumUnten = 0;
         for (int i = 8; i < 15; i++){
-            sumUnten += score[i];
+            if(score[i] != -1) sumUnten += score[i];
         }
         return sumUnten;
     }
 
     public int sumInsgesamt() {
         return this.getValue("Unten")+this.getValue("Bonus");
+    }
+
+    public boolean finished(){
+        boolean finished = true;
+        for(int i = 0; i < score.length ; i++){
+            if( score[i] < 0) finished = false;
+        }
+        return finished;
     }
 }

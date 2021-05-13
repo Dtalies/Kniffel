@@ -3,10 +3,10 @@ public class DiceCup {
     private Integer diceCount = 5;
     //Array aus Würfeln
     public Dice[] dices = new Dice[diceCount];
-    public int timesrolled = 0;
+    public int timesRolled = 0;
 
-    public DiceCup(int pDiceCount){
-        this.diceCount = pDiceCount;
+    public DiceCup(int diceCount){
+        this.diceCount = diceCount;
         for(int i = 0; i<this.diceCount ; i++){
             this.dices[i] = new Dice();
         }
@@ -18,7 +18,7 @@ public class DiceCup {
     
     public void shake(){
         for(int i = 0; i<this.diceCount ; i++){
-            if(dices[i].getRoll() == true){
+            if(dices[i].getRoll()){
                 dices[i].rolling();
             }
         }
@@ -32,15 +32,23 @@ public class DiceCup {
         dices[4].setCount(1);
     }
 
+    public void clearDiceCup(){
+        dices[0].setCount(0);
+        dices[1].setCount(0);
+        dices[2].setCount(0);
+        dices[3].setCount(0);
+        dices[4].setCount(0);
+    }
+
     public void setTimesRolled(){
-        this.timesrolled = timesrolled+1;
+        this.timesRolled = timesRolled+1;
     }
     
     public int getTimesRolled(){
-        return timesrolled;
+        return timesRolled;
     }
     
     public void clearTimesRolled(){
-        this.timesrolled = 0;
+        this.timesRolled = 0;
     }
 }
