@@ -193,7 +193,7 @@ public class Gui implements ActionListener {
                             case "3er" : 
                                 sPlayerList.players.get(truePlayer).scoresheet.setScore(trueScore ,Sheet.rowOfThree(sPlayerList.players.get(truePlayer).diceCup)); 
                                 scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoresheet.getValue(sPlayerList.players.get(truePlayer).scoresheet.getTitle(trueScore))));
-                                p1.revalidate(); p1.repaint(); break;;
+                                p1.revalidate(); p1.repaint(); break;
                             case "4er" : 
                                 sPlayerList.players.get(truePlayer).scoresheet.setScore(trueScore ,Sheet.rowOfFour(sPlayerList.players.get(truePlayer).diceCup)); 
                                 scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoresheet.getValue(sPlayerList.players.get(truePlayer).scoresheet.getTitle(trueScore))));
@@ -338,8 +338,8 @@ public class Gui implements ActionListener {
             playerFrame.add(playFrame);
         }
         
-        int q = 0;
-        while( q!= 99){
+        // int q = 0;
+        // while( q!= 99){
             for(int z = 0; z<sPlayerList.getSize();z++){
                 if(sPlayerList.players.get(z).getTurn() == true){
                     playerFrame.get(z).setVisible(true);
@@ -347,6 +347,6 @@ public class Gui implements ActionListener {
                     playerFrame.get(z).setVisible(false);
                 }             
             }
-        }
+        // }
     }        
  }

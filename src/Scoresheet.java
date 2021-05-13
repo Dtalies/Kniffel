@@ -64,7 +64,7 @@ public class ScoreSheet{
             case 10: //"Fullhouse"
                 worked = set(i, value); break;
             case 11: //"Kleine Strasse"
-                worked = set(i, value) break;
+                worked = set(i, value); break;
             case 12: //"Grosse Strasse"
                 worked = set(i, value); break;
             case 13: //"Kniffel"
