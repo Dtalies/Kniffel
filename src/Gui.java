@@ -145,7 +145,7 @@ public class Gui implements ActionListener {
                 sPlayerList.players.get(truePlayer).scoreSheet.setScore(trueScore ,Sheet.shortStreet(sPlayerList.players.get(truePlayer).diceCup)); 
                 scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoreSheet.getValue(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(trueScore))));
                 p1.revalidate(); p1.repaint(); break;
-            case "Große Straße" : 
+            case "Grosse Strasse" : 
                 sPlayerList.players.get(truePlayer).scoreSheet.setScore(trueScore ,Sheet.longStreet(sPlayerList.players.get(truePlayer).diceCup)); 
                 scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoreSheet.getValue(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(trueScore))));
                 p1.revalidate(); p1.repaint(); break;
@@ -188,7 +188,7 @@ public class Gui implements ActionListener {
             playerFrame.get(0).setVisible(true);
     }
 
-    private void checkFinish(PlayerList sPlayerList){
+    private void checkFinish(PlayerList sPlayerList,int truePlayer){
         boolean done = false;
         for(int i = 0; i < sPlayerList.getSize();i++){
             for(int cf = 0; cf<sPlayerList.players.get(i).scoreSheet.getlength();cf++){
@@ -196,6 +196,9 @@ public class Gui implements ActionListener {
                 
             }
         }
+        // if(sPlayerList.players.get(truePlayer+1).scoreSheet.getfinished()==true){
+        //     JOptionPane.showMessageDialog(frame, "Gewinnier ist" +);
+        // }
        //TODO: Gewinner funktion (aufrufen)
         finish = done;
     }
@@ -223,7 +226,7 @@ public class Gui implements ActionListener {
                         b2.setVisible(false);
                     }
     }
-     public void addRolleButton(JButton b1,JLabel[] dices){
+     public void addRolleButton(JButton b1,JLabel[] dices, JCheckBox[] checkRoll){
          b1.setVisible(true);
         //  for(int i = 0; i<5;i++)
         //  {
@@ -231,7 +234,9 @@ public class Gui implements ActionListener {
         //  }
         for(int i = 0;i<5;i++){
             dices[i].setText(Integer.toString(0));
+            checkRoll[i].setSelected(false);
         }
+
          
     }
 
@@ -379,9 +384,9 @@ public class Gui implements ActionListener {
                         decide(sPlayerList , truePlayer , trueScore, t, scores , p1);
                         disableButton(sPlayerList, truePlayer, b2, trueScore);
                         sumScore(sPlayerList, truePlayer, scores);
-                        checkFinish(sPlayerList);
+                        checkFinish(sPlayerList,truePlayer);
                         swapPlayer(sPlayerList, truePlayer);
-                        addRolleButton(b1, dices);
+                        addRolleButton(b1, dices,checkroll);
                         p1.revalidate(); 
                         p1.repaint();
                         
@@ -424,6 +429,7 @@ public class Gui implements ActionListener {
                     p4.add(scores[m]);
                 }
             }
+            // p4.setAlignmentY(Component.CENTER_ALIGNMENT);
             playFrame.add(p2,BorderLayout.WEST);
             playFrame.add(p3,BorderLayout.EAST);
             playFrame.add(p4,BorderLayout.CENTER);

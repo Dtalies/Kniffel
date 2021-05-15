@@ -140,9 +140,15 @@ public class ScoreSheet{
     public int sumInsgesamt() {
         return this.getValue("Unten")+this.getValue("Bonus");
     }
+    boolean finished = true;
+
+    public boolean getfinished()
+    {
+        return finished;
+    }
     //überprüft ob alle teile des Arrays != 0 sind
     public boolean finished(){
-        boolean finished = true;
+        
         for(int i = 0; i < score.length ; i++){
             if( score[i] < 0) finished = false;
         }
