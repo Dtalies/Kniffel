@@ -1,6 +1,8 @@
 import java.util.Arrays;
 
 public class Sheet {
+
+    //Erzeugt ein Temporäres Array , welches Sortiert wird , damit andere Methoden einfacher mit diesem Arbeiten können
     public static int[] sort(DiceCup diceCup){        
         int[] tempDices = new int[5];
         for(int i = 0; i<diceCup.dices.length ; i++){
@@ -9,7 +11,7 @@ public class Sheet {
         Arrays.sort(tempDices);
         return tempDices;
     }
-
+    //Methode zur Addierung von gleichen Zahlen welche gewürfelt wurden und gibt die Summe zurück(Wenn es nicht zutrifft wird 0 zurück gegeben(streichen))
     public static int adding(int addnumber , DiceCup diceCup){        
         int[] tempDices = new int[5];
         for(int i = 0; i<diceCup.dices.length ; i++){
@@ -24,7 +26,7 @@ public class Sheet {
         }
         return sum;
     }
-
+    //Prüft ob das gesammte Temporäre Array aus gleichen Zahlen besteht und gibt den wert 50 zurück(Wenn es nicht zutrifft wird 0 zurück gegeben(streichen))
     public static int kniffel(DiceCup diceCup){
         int[] sorted = Sheet.sort(diceCup);
         int kniffel = 0;
@@ -37,7 +39,7 @@ public class Sheet {
         }
         return kniffel;
     }
-
+    //Prüft auf die verschiedenen Combinationen für ein FullHouse und gibt den Wert 25 zurück(Wenn es nicht zutrifft wird 0 zurück gegeben(streichen))
     public static int fullHouse(DiceCup diceCup){
         int[] sorted = Sheet.sort(diceCup);
         int fullHouse = 0;
@@ -49,7 +51,7 @@ public class Sheet {
         }
         return fullHouse;
     }
-
+    //Prüft auf die verschiedenen Combinationen für eine Kleine Straße und gibt den wert 30 zurück(Wenn es nicht zutrifft wird 0 zurück gegeben(streichen))
     public static int shortStreet(DiceCup diceCup){
         int shortStreet = 0;
         int[] sorted = Sheet.sort(diceCup);        
@@ -61,7 +63,7 @@ public class Sheet {
         }
         return shortStreet;
     }
-
+    //Prüft auf die verschiedenen Combinationen für eine Große Straße und gibt den wert 40 zurück(Wenn es nicht zutrifft wird 0 zurück gegeben(streichen))
     public static int longStreet(DiceCup diceCup){
         int longStreet = 0;
         int[] sorted = Sheet.sort(diceCup);        
@@ -70,11 +72,11 @@ public class Sheet {
         }
         return longStreet;
     }
-
+        //Addiert das gesammte Array zusammen
     public static int chance(DiceCup diceCup){        
         return diceCup.dices[0].getCount()+ diceCup.dices[1].getCount()+ diceCup.dices[2].getCount()+ diceCup.dices[3].getCount()+ diceCup.dices[4].getCount();
     }
-
+    //Prüft auf die verschiedenen Combinationen für eine einen 3er Pash und addiert den 3er Pash zusammen und gibt diesen Wert zurück(Wenn es nicht zutrifft wird 0 zurück gegeben(streichen))
     public static int rowOfThree(DiceCup diceCup){
         int rowOfThree = 0;
         int[] sorted =Sheet.sort(diceCup);
@@ -83,7 +85,7 @@ public class Sheet {
         if(sorted[2] ==sorted[3] && sorted[2] == sorted[4]) rowOfThree = sorted[2]+sorted[3]+sorted[4];
         return rowOfThree;
     }
-
+        //Prüft auf die verschiedenen Combinationen für eine 4er Pash und addiert den 4er Pash zusammen und gibt diesen Wert zurück(Wenn es nicht zutrifft wird 0 zurück gegeben(streichen))
     public static int rowOfFour(DiceCup diceCup){
         int rowOfFour = 0;
         int[] sorted = Sheet.sort(diceCup);

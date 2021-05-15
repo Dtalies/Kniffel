@@ -223,6 +223,17 @@ public class Gui implements ActionListener {
                         b2.setVisible(false);
                     }
     }
+     public void addRolleButton(JButton b1,JLabel[] dices){
+         b1.setVisible(true);
+        //  for(int i = 0; i<5;i++)
+        //  {
+        //      checkRoll[i].setVisible(true);
+        //  }
+        for(int i = 0;i<5;i++){
+            dices[i].setText(Integer.toString(0));
+        }
+         
+    }
 
     private void createGUI(PlayerList sPlayerList)
     {
@@ -235,31 +246,109 @@ public class Gui implements ActionListener {
             playFrame.setDefaultCloseOperation(0);
             playFrame.setSize(900,900);   
             playFrame.setTitle(sPlayerList.players.get(i).getName());
-            playFrame.setName(Integer.toString(i));            
+            playFrame.setName(Integer.toString(i));
+            playFrame.setLayout(new BorderLayout());            
             playFrame.setVisible(true);
             playFrame.setLocation(100, 100);
 
             JPanel p1 = new JPanel();
             p1.setLayout(new FlowLayout(FlowLayout.CENTER));
+            JPanel p2 = new JPanel();
+            p2.setLayout(new GridLayout(7,3));
+            JPanel p3 = new JPanel();
+            p3.setLayout(new GridLayout(7,3));
+            JPanel p4 = new JPanel();
+            p4.setLayout(new GridLayout(8,1));
+
 
             JLabel[] scoresName = new JLabel[sPlayerList.players.get(i).scoreSheet.getlength()];
             JLabel[] scores = new JLabel[sPlayerList.players.get(i).scoreSheet.getlength()];
             JButton[] setScores = new JButton[sPlayerList.players.get(i).scoreSheet.getlength()];
 
+            
+
+            JLabel[] dices = new JLabel[5];
+            JCheckBox[] checkroll = new JCheckBox[5];
+
+            for (int d = 0; d<5; d++){
+                int truedice = d;
+                JLabel l1 = new JLabel();
+            
+                //Erzeugt 5 Labels welche die Werte der Würfel dastellen
+                l1.setSize(new Dimension(50, 50));
+                l1.setName(Integer.toString(d));
+                l1.setText(Integer.toString(sPlayerList.players.get(truePlayer).diceCup.dices[truedice].getCount()));
+                l1.setLocation(100+d*100, 100);
+                l1.setVisible(true);
+                dices[d] = l1;
+
+                //Erzeugt 5 Checkboxen , welche (wenn angeglickt) die Würfel nicht Würfeln lassen
+                checkroll[d] = new JCheckBox();
+                checkroll[d].setSize(new Dimension(20,20));
+                checkroll[d].setLocation(200+d*100, 100);
+                checkroll[d].addItemListener(e -> {
+                    if(e.getStateChange() == ItemEvent.SELECTED) {
+                        sPlayerList.players.get(truePlayer).diceCup.dices[truedice].setRoll(false);  
+                    } else {
+                        sPlayerList.players.get(truePlayer).diceCup.dices[truedice].setRoll(true);
+                    }
+                });
+
+                checkroll[d].setVisible(false);
+               
+                
+               
+                
+            }
+                
+            playFrame.add(p1,BorderLayout.NORTH);
+
+            //erzeugt den Würfel Button und sobald dieser Betätigt wurde und alle Würfel gewürfelt wurde werden die CheckBoxen auf Visible gesetzt
+            JButton b1 = new JButton("Roll");
+            
+            b1.setBackground(Color.black);
+            b1.setForeground(Color.white);
+            b1.setSize(new Dimension(100,100));
+            b1.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e){
+                    for(int d = 0; d<5 ;d++){
+                        checkroll[d].setVisible(true);
+                    }
+
+                    if(sPlayerList.players.get(truePlayer).diceCup.getTimesRolled() == 10){ 
+                        b1.setVisible(false);
+                        for(int d = 0; d<5;d++){
+                            checkroll[d].setVisible(false);
+                        }
+                        p1.revalidate(); p1.repaint();
+                    }                
+
+                    sPlayerList.players.get(truePlayer).diceCup.shake();
+                    for (int p = 0 ; p<5 ; p++){
+                        dices[p].setText(Integer.toString(sPlayerList.players.get(truePlayer).diceCup.dices[p].getCount()));
+                        sPlayerList.players.get(truePlayer).diceCup.setTimesRolled();                    
+                    }   
+                }
+            });
+            
+            // JButton[] eintragen = new JButton[sPlayerList.players.get(truePlayer).scoreSheet.getlength()];
+            // JLabel[] namen = new JLabel[sPlayerList.players.get(truePlayer).scoreSheet.getlength()];
+            // JLabel[] werte = new JLabel[sPlayerList.players.get(truePlayer).scoreSheet.getlength()];
+            
             for(int s = 0 ; s<sPlayerList.players.get(i).scoreSheet.getlength()-1; s++){
                 int trueScore = s;
                 JLabel l2 = new JLabel();
 
-                l2.setSize(new Dimension(50, 50));
+                //l2.setSize(new Dimension(50, 50));
                 l2.setName(Integer.toString(s));
                 l2.setText(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(s));
                 l2.setLocation(100+s*100, 100);
                 l2.setVisible(true);
                 scoresName[s] = l2;
-                p1.add(l2);
+                
 
                 JLabel l3 = new JLabel();
-                l3.setSize(new Dimension(50, 50));
+                //l3.setSize(new Dimension(50, 50));
                 l3.setName(Integer.toString(s));
                 if (sPlayerList.players.get(truePlayer).scoreSheet.getValue(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(s)) < 0) {
                     l3.setText("0");
@@ -269,10 +358,10 @@ public class Gui implements ActionListener {
                 l3.setLocation(100+s*100, 100);
                 l3.setVisible(true);
                 scores[s] = l3;
-                p1.add(l3);
+                
 
                 JButton b2 = new JButton();
-                b2.setSize(new Dimension(50, 50));
+                //b2.setSize(new Dimension(50, 50));
                 b2.setName(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(s));
                 b2.setText("Eintragen");
                 b2.setLocation(100+s*100, 100);
@@ -291,89 +380,55 @@ public class Gui implements ActionListener {
                         disableButton(sPlayerList, truePlayer, b2, trueScore);
                         sumScore(sPlayerList, truePlayer, scores);
                         checkFinish(sPlayerList);
-
-
                         swapPlayer(sPlayerList, truePlayer);
-                    
+                        addRolleButton(b1, dices);
                         p1.revalidate(); 
                         p1.repaint();
                         
                     }
                 });
                 setScores[s] = b2;
-                p1.add(b2);
-            }
-
-            JLabel[] dices = new JLabel[5];
-            JCheckBox[] checkroll = new JCheckBox[5];
-
-            for (int d = 0; d<5; d++){
-                int truedice = d;
-                JLabel l1 = new JLabel();
-            
-                l1.setSize(new Dimension(50, 50));
-                l1.setName(Integer.toString(d));
-                l1.setText(Integer.toString(sPlayerList.players.get(truePlayer).diceCup.dices[truedice].getCount()));
-                l1.setLocation(100+d*100, 100);
-                l1.setVisible(true);
-                
-                dices[d] = l1;
-                checkroll[d] = new JCheckBox();
-                checkroll[d].setSize(new Dimension(20,20));
-                checkroll[d].setLocation(200+d*100, 100);
-                checkroll[d].addItemListener(e -> {
-                    if(e.getStateChange() == ItemEvent.SELECTED) {
-                        sPlayerList.players.get(truePlayer).diceCup.dices[truedice].setRoll(false);  
-                    } else {
-                        sPlayerList.players.get(truePlayer).diceCup.dices[truedice].setRoll(true);
-                    }
-                });
-
-                checkroll[d].setVisible(false);
-                p1.add(checkroll[d]);
-                
-               
                 
             }
-                
-            for(int u = 0; u<5;u++) {
-                p1.add(dices[u]);
+            for(int k=0; k<5;k++)
+            {
+                p1.add(dices[k]);
+                p1.add(checkroll[k]);
             }
-
-            playFrame.add(p1);
-
-            JButton b1 = new JButton("Roll");
-            
-            b1.setBackground(Color.black);
-            b1.setForeground(Color.white);
-            b1.setSize(new Dimension(100,100));
-            b1.addActionListener(new ActionListener(){
-                public void actionPerformed(ActionEvent e){
-                    for(int d = 0; d<5 ;d++){
-                        checkroll[d].setVisible(true);
-                    }
-
-                    if(sPlayerList.players.get(truePlayer).diceCup.getTimesRolled() == 10){ 
-                        p1.remove(b1);
-                        for(int d = 0; d<5;d++){
-                            p1.remove(checkroll[d]);
-                        }
-                        p1.revalidate(); p1.repaint();
-                    }                
-
-                    sPlayerList.players.get(truePlayer).diceCup.shake();
-                    for (int p = 0 ; p<5 ; p++){
-                        dices[p].setText(Integer.toString(sPlayerList.players.get(truePlayer).diceCup.dices[p].getCount()));
-                        sPlayerList.players.get(truePlayer).diceCup.setTimesRolled();                    
-                    }   
-                }
-            });
             if(sPlayerList.players.get(truePlayer).diceCup.getTimesRolled() != 15){ 
                 p1.add(b1);
             }
+            for(int l = 0; l<sPlayerList.players.get(truePlayer).scoreSheet.getlength()/2-1;l++)
+            {
+                p2.add(scoresName[l]);
+                p2.add(scores[l]);
+                p2.add(setScores[l]);
+                if(l== 6 || l==7 || l==15 || l==16) {
+                    p2.remove(scoresName[l]);
+                    p2.remove(scores[l]);
+                    p2.remove(setScores[l]);
+             }
+            }
+            for(int o = 8; o<sPlayerList.players.get(truePlayer).scoreSheet.getlength();o++){
+                p3.add(scoresName[o]);
+                p3.add(scores[o]);
+                p3.add(setScores[o]);
+                if(o== 6 || o==7 || o==15 || o==16) {
+                   p3.remove(scoresName[o]);
+                   p3.remove(scores[o]);
+                   p3.remove(setScores[o]);
+            }
+            for(int m = 0; m<sPlayerList.players.get(truePlayer).scoreSheet.getlength();m++){
+                if(m==6 || m==7 || m==15|| m==16){
+                    p4.add(scoresName[m]);
+                    p4.add(scores[m]);
+                }
+            }
+            playFrame.add(p2,BorderLayout.WEST);
+            playFrame.add(p3,BorderLayout.EAST);
+            playFrame.add(p4,BorderLayout.CENTER);
             playerFrame.add(playFrame);
         }
-        
-       
     }        
  }
+}

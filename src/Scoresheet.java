@@ -1,7 +1,9 @@
 
-
 public class ScoreSheet{
+
+    //Erzeugt ein Array, welches zum Speichern der Punkte dient (-1 damit beim Streichen der Wert auf 0 gesetzt werden kann)
     private  int[] score=  {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
+
 
     private boolean set(int i,int value){
         if(score[i] <0){
@@ -15,6 +17,7 @@ public class ScoreSheet{
         return score.length;
     }
     
+
     public String getTitle(int i){
         String title = "";
         switch (i) {
@@ -40,6 +43,7 @@ public class ScoreSheet{
         return title;
     }
 
+    //Verändert den Score im Array je nach art der eingabe über den Knopfdruck in der GUI / Sheet 
     public boolean setScore(int i, int value){
         boolean worked = false;
         switch (i) {
@@ -82,6 +86,7 @@ public class ScoreSheet{
         return worked;
     }
 
+    //Gibt den Wert des Arrays an einer Stelle zurück
     public int getValue(String typ) {
         int value = 0;
         switch(typ) {
@@ -107,6 +112,7 @@ public class ScoreSheet{
         return value;
     }
 
+    //Addiert den Ersten teil des Arrays zusammen(1-6)
     public int sumNoBonus(){
         int sumNoBonus = 0;
         for (int i = 0; i < 5; i++){
@@ -114,7 +120,7 @@ public class ScoreSheet{
         }
         return sumNoBonus;
     }
-
+    //Prüft ob der noBonus > als 63 ist, da indem fall auf diese Punkt 35 drauf addiert wird.
     public int bonusPoints(){
         int sumTop = this.getValue("noBonus");
         if(sumTop >= 63){
@@ -122,7 +128,7 @@ public class ScoreSheet{
         }
         return sumTop;
     }
-
+    //Addiert den Hinterenteil
     public int sumUnten(){
         int sumUnten = 0;
         for (int i = 8; i < 15; i++){
@@ -130,11 +136,11 @@ public class ScoreSheet{
         }
         return sumUnten;
     }
-
+    //Addiert die Summe mit/ohne Bonus mit der Summe des Hinterenteils
     public int sumInsgesamt() {
         return this.getValue("Unten")+this.getValue("Bonus");
     }
-
+    //überprüft ob alle teile des Arrays != 0 sind
     public boolean finished(){
         boolean finished = true;
         for(int i = 0; i < score.length ; i++){
