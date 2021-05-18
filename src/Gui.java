@@ -203,9 +203,10 @@ public class Gui implements ActionListener {
         finish = done;
     }
     private void swapPlayer(PlayerList sPlayerList, int truePlayer){
-        sPlayerList.players.get(truePlayer).setTurn(false);
-                playerFrame.get(truePlayer).setVisible(false);
+                
                 if(truePlayer== sPlayerList.getSize()-1){
+                    sPlayerList.players.get(truePlayer).setTurn(false);
+                    playerFrame.get(truePlayer).setVisible(false);
                     sPlayerList.players.get(0).setTurn(true);
                     playerFrame.get(0).setVisible(true);
                     sPlayerList.players.get(0).diceCup.clearTimesRolled();
@@ -215,6 +216,8 @@ public class Gui implements ActionListener {
                     playerFrame.get(truePlayer+1).setVisible(true);
                     sPlayerList.players.get(truePlayer+1).diceCup.clearTimesRolled();
                     sPlayerList.players.get(0).diceCup.clearDiceCup();
+                    sPlayerList.players.get(truePlayer).setTurn(false);
+                    playerFrame.get(truePlayer).setVisible(false);
                 }
     }
     public void disableButton(PlayerList sPlayerList, int truePlayer, JButton b2, int trueScore){
@@ -235,6 +238,7 @@ public class Gui implements ActionListener {
         for(int i = 0;i<5;i++){
             dices[i].setText(Integer.toString(0));
             checkRoll[i].setSelected(false);
+            checkRoll[i].setVisible(false);;
         }
 
          
@@ -340,7 +344,7 @@ public class Gui implements ActionListener {
             // JLabel[] namen = new JLabel[sPlayerList.players.get(truePlayer).scoreSheet.getlength()];
             // JLabel[] werte = new JLabel[sPlayerList.players.get(truePlayer).scoreSheet.getlength()];
             
-            for(int s = 0 ; s<sPlayerList.players.get(i).scoreSheet.getlength()-1; s++){
+            for(int s = 0 ; s<sPlayerList.players.get(i).scoreSheet.getlength(); s++){
                 int trueScore = s;
                 JLabel l2 = new JLabel();
 
@@ -414,7 +418,7 @@ public class Gui implements ActionListener {
                     p2.remove(setScores[l]);
              }
             }
-            for(int o = 8; o<sPlayerList.players.get(truePlayer).scoreSheet.getlength();o++){
+            for(int o = 7; o<sPlayerList.players.get(truePlayer).scoreSheet.getlength()-1;o++){
                 p3.add(scoresName[o]);
                 p3.add(scores[o]);
                 p3.add(setScores[o]);
