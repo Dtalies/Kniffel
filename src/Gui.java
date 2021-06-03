@@ -8,6 +8,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 
 
+import javax.swing.ImageIcon;
+
+
 public class Gui implements ActionListener {    
     final String h = "Hilfe";
     final String c = "Credits";
@@ -165,20 +168,24 @@ public class Gui implements ActionListener {
     }
 
 
-    private void sumScore(PlayerList sPlayerList, int truePlayer, JLabel[] scores){
-
-        sPlayerList.players.get(truePlayer).scoreSheet.setScore(6 , 0); 
+    private void sumScore(PlayerList sPlayerList, int truePlayer, JLabel[] scores,JPanel p4){
+       
+        sPlayerList.players.get(truePlayer).scoreSheet.setScore(6 , sPlayerList.players.get(truePlayer).scoreSheet.sumNoBonus()); 
         scores[6].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoreSheet.getValue(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(6))));
 
-        sPlayerList.players.get(truePlayer).scoreSheet.setScore(7 , 0); 
+        sPlayerList.players.get(truePlayer).scoreSheet.setScore(7 , sPlayerList.players.get(truePlayer).scoreSheet.bonusPoints()); 
         scores[7].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoreSheet.getValue(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(7))));
 
-        sPlayerList.players.get(truePlayer).scoreSheet.setScore(15 , 0);
+        sPlayerList.players.get(truePlayer).scoreSheet.setScore(15 , sPlayerList.players.get(truePlayer).scoreSheet.sumUnten());
         scores[15].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoreSheet.getValue(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(15))));
 
-        sPlayerList.players.get(truePlayer).scoreSheet.setScore(16 , 0); 
+        sPlayerList.players.get(truePlayer).scoreSheet.setScore(16 , sPlayerList.players.get(truePlayer).scoreSheet.sumInsgesamt());
         scores[16].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoreSheet.getValue(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(16))));
-    }
+        
+        p4.revalidate();
+        p4.repaint();
+    
+}
 
     public void startGame(PlayerList sPlayerList){
             for(int z = 0; z<sPlayerList.getSize();z++){ 
@@ -186,39 +193,55 @@ public class Gui implements ActionListener {
             }
 
             playerFrame.get(0).setVisible(true);
+            sPlayerList.players.get(0).setTurn(true);
     }
 
     private void checkFinish(PlayerList sPlayerList,int truePlayer){
-        boolean done = false;
-        for(int i = 0; i < sPlayerList.getSize();i++){
-            for(int cf = 0; cf<sPlayerList.players.get(i).scoreSheet.getlength();cf++){
-                done = sPlayerList.players.get(i).scoreSheet.finished();
-                
-            }
-        }
-        // if(sPlayerList.players.get(truePlayer+1).scoreSheet.getfinished()==true){
-        //     JOptionPane.showMessageDialog(frame, "Gewinnier ist" +);
-        // }
-       //TODO: Gewinner funktion (aufrufen)
-        finish = done;
-    }
-    private void swapPlayer(PlayerList sPlayerList, int truePlayer){
-                
-                if(truePlayer== sPlayerList.getSize()-1){
-                    sPlayerList.players.get(truePlayer).setTurn(false);
-                    playerFrame.get(truePlayer).setVisible(false);
-                    sPlayerList.players.get(0).setTurn(true);
-                    playerFrame.get(0).setVisible(true);
-                    sPlayerList.players.get(0).diceCup.clearTimesRolled();
-                    sPlayerList.players.get(0).diceCup.clearDiceCup();
-                } else {
-                    sPlayerList.players.get(truePlayer+1).setTurn(true);
-                    playerFrame.get(truePlayer+1).setVisible(true);
-                    sPlayerList.players.get(truePlayer+1).diceCup.clearTimesRolled();
-                    sPlayerList.players.get(0).diceCup.clearDiceCup();
-                    sPlayerList.players.get(truePlayer).setTurn(false);
-                    playerFrame.get(truePlayer).setVisible(false);
+        
+        
+        
+        if(sPlayerList.players.get(sPlayerList.getSize()-1).scoreSheet.getfinished()==true){
+            String gewinner = sPlayerList.players.get(0).getName();
+            int highscore = sPlayerList.players.get(0).scoreSheet.getValue("Insgesamt");
+        
+            { 
+                for(int k = 0; k<sPlayerList.getSize();k++)
+                {
+                   if(sPlayerList.players.get(k).scoreSheet.getValue("Insgesamt")> highscore){
+                       highscore = sPlayerList.players.get(k).scoreSheet.getValue("Insgesamt");
+                       gewinner = sPlayerList.players.get(k).getName();
+                   }
                 }
+            }
+            JOptionPane.showMessageDialog(frame, "Der Gewinner ist: " + gewinner+  " mit " + highscore + " Punkten");
+            frame.dispose();
+            System.exit(0);
+        }
+    }
+        
+    // }
+    private void swapPlayer(PlayerList sPlayerList, int truePlayer){
+                disablePlayer(sPlayerList, truePlayer);
+                activatePlayer(sPlayerList, truePlayer);
+    }
+    public void disablePlayer(PlayerList sPlayerList, int truePlayer){
+        for(int i = 0;i<sPlayerList.getSize();i++)
+        {
+            sPlayerList.players.get(i).setTurn(false);
+            sPlayerList.players.get(i).diceCup.clearTimesRolled();
+            sPlayerList.players.get(i).diceCup.clearDiceCup();
+            playerFrame.get(truePlayer).setVisible(false);
+        }
+    }
+    public void activatePlayer(PlayerList sPlayerList, int truePlayer){
+        if(truePlayer== sPlayerList.getSize()-1){
+            sPlayerList.players.get(0).setTurn(true);
+            playerFrame.get(0).setVisible(true);
+        }
+        else{
+            sPlayerList.players.get(truePlayer+1).setTurn(true);
+            playerFrame.get((truePlayer+1)*9).setVisible(true);
+        }
     }
     public void disableButton(PlayerList sPlayerList, int truePlayer, JButton b2, int trueScore){
         int tempScore = sPlayerList.players.get(truePlayer).scoreSheet.getValue(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(trueScore));
@@ -231,22 +254,18 @@ public class Gui implements ActionListener {
     }
      public void addRolleButton(JButton b1,JLabel[] dices, JCheckBox[] checkRoll){
          b1.setVisible(true);
-        //  for(int i = 0; i<5;i++)
-        //  {
-        //      checkRoll[i].setVisible(true);
-        //  }
+
         for(int i = 0;i<5;i++){
             dices[i].setText(Integer.toString(0));
             checkRoll[i].setSelected(false);
             checkRoll[i].setVisible(false);;
         }
 
-         
     }
 
     private void createGUI(PlayerList sPlayerList)
     {
-        sPlayerList.players.get(0).setTurn(true);
+        
         
         for(int i = 0; i<sPlayerList.getSize();i++){
             int truePlayer = i;            
@@ -257,7 +276,7 @@ public class Gui implements ActionListener {
             playFrame.setTitle(sPlayerList.players.get(i).getName());
             playFrame.setName(Integer.toString(i));
             playFrame.setLayout(new BorderLayout());            
-            playFrame.setVisible(true);
+            playFrame.setVisible(false);
             playFrame.setLocation(100, 100);
 
             JPanel p1 = new JPanel();
@@ -267,7 +286,7 @@ public class Gui implements ActionListener {
             JPanel p3 = new JPanel();
             p3.setLayout(new GridLayout(7,3));
             JPanel p4 = new JPanel();
-            p4.setLayout(new GridLayout(8,1));
+            p4.setLayout(new GridLayout(7,1));
 
 
             JLabel[] scoresName = new JLabel[sPlayerList.players.get(i).scoreSheet.getlength()];
@@ -340,10 +359,13 @@ public class Gui implements ActionListener {
                 }
             });
             
-            // JButton[] eintragen = new JButton[sPlayerList.players.get(truePlayer).scoreSheet.getlength()];
-            // JLabel[] namen = new JLabel[sPlayerList.players.get(truePlayer).scoreSheet.getlength()];
-            // JLabel[] werte = new JLabel[sPlayerList.players.get(truePlayer).scoreSheet.getlength()];
             
+           
+ 
+            JLabel backImgPanel = new JLabel(new ImageIcon("C:/Download(3).jpg"));
+        
+            backImgPanel.setLayout(null);
+            backImgPanel.setOpaque(false);
             for(int s = 0 ; s<sPlayerList.players.get(i).scoreSheet.getlength(); s++){
                 int trueScore = s;
                 JLabel l2 = new JLabel();
@@ -387,7 +409,7 @@ public class Gui implements ActionListener {
                         String t = b3.getName();
                         decide(sPlayerList , truePlayer , trueScore, t, scores , p1);
                         disableButton(sPlayerList, truePlayer, b2, trueScore);
-                        sumScore(sPlayerList, truePlayer, scores);
+                        sumScore(sPlayerList, truePlayer, scores,p4);
                         checkFinish(sPlayerList,truePlayer);
                         swapPlayer(sPlayerList, truePlayer);
                         addRolleButton(b1, dices,checkroll);
@@ -433,6 +455,7 @@ public class Gui implements ActionListener {
                     p4.add(scores[m]);
                 }
             }
+            p4.add(backImgPanel);
             // p4.setAlignmentY(Component.CENTER_ALIGNMENT);
             playFrame.add(p2,BorderLayout.WEST);
             playFrame.add(p3,BorderLayout.EAST);

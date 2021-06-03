@@ -2,7 +2,7 @@
 public class ScoreSheet{
 
     //Erzeugt ein Array, welches zum Speichern der Punkte dient (-1 damit beim Streichen der Wert auf 0 gesetzt werden kann)
-    private  int[] score=  {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
+    private  int[] score=  {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
 
 
     private boolean set(int i,int value){
@@ -11,6 +11,11 @@ public class ScoreSheet{
             return true;
         }
         return false;
+    }
+    private boolean setSums(int i,int value)
+    {
+        score[i] = value;
+        return true;
     }
 
     public int getlength(){
@@ -60,9 +65,9 @@ public class ScoreSheet{
             case 5: //"Sechser"
                 worked = set(i, value); break;
             case 6: //"noBonus"
-                worked = set(i, sumNoBonus()); break;
+                worked = setSums(i, value); break;
             case 7: //"Bonus"
-                worked = set(i, bonusPoints()); break;
+                worked = setSums(i, value); break;
             case 8: //"3er"
                 worked = set(i, value); break;
             case 9: //4er"
@@ -78,9 +83,9 @@ public class ScoreSheet{
             case 14: //"Chance"
                 worked = set(i, value); break;
             case 15: //"Unten"
-                worked = set(i, sumUnten()); break;
+                worked = setSums(i, value); break;
             case 16: //"Insgesamt":
-                worked = set(i, sumInsgesamt()); break;
+                worked = setSums(i, value); break;
             default: break;     
         }
         return worked;
@@ -115,7 +120,7 @@ public class ScoreSheet{
     //Addiert den Ersten teil des Arrays zusammen(1-6)
     public int sumNoBonus(){
         int sumNoBonus = 0;
-        for (int i = 0; i < 5; i++){
+        for (int i = 0; i < 6; i++){
             if(score[i] != -1)  sumNoBonus += score[i];
         }
         return sumNoBonus;
@@ -140,17 +145,18 @@ public class ScoreSheet{
     public int sumInsgesamt() {
         return this.getValue("Unten")+this.getValue("Bonus");
     }
-    boolean finished = true;
+    
 
     public boolean getfinished()
     {
-        return finished;
+        return finished();
     }
     //überprüft ob alle teile des Arrays != 0 sind
-    public boolean finished(){
-        
+    private boolean finished(){
+        boolean finished = true;
         for(int i = 0; i < score.length ; i++){
-            if( score[i] < 0) finished = false;
+            if( score[i] <0 ) finished = false;
+            
         }
         return finished;
     }
