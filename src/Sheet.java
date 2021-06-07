@@ -30,6 +30,7 @@ public class Sheet {
     public static int kniffel(DiceCup diceCup){
         int[] sorted = Sheet.sort(diceCup);
         int kniffel = 0;
+        if(sorted[0]>0){
         for (int i=1; i < diceCup.dices.length; i++){
             if(sorted[i] == sorted[0]){
                 kniffel = 50;
@@ -37,6 +38,7 @@ public class Sheet {
                 kniffel = 0;
             }
         }
+    }
         return kniffel;
     }
     //Prüft auf die verschiedenen Combinationen für ein FullHouse und gibt den Wert 25 zurück(Wenn es nicht zutrifft wird 0 zurück gegeben(streichen))

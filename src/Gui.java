@@ -18,7 +18,7 @@ public class Gui implements ActionListener {
     private JMenuItem i1, i2, i3, i4, i5;
     private static JFrame frame = new JFrame();
     private List<JFrame> playerFrame = new ArrayList<>();
-    private boolean finish = false;
+
 
     public Gui(){
         createMainFrame();
@@ -272,7 +272,7 @@ public class Gui implements ActionListener {
             JFrame playFrame = new JFrame();
 
             playFrame.setDefaultCloseOperation(0);
-            playFrame.setSize(900,900);   
+            playFrame.setSize(800,500);   
             playFrame.setTitle(sPlayerList.players.get(i).getName());
             playFrame.setName(Integer.toString(i));
             playFrame.setLayout(new BorderLayout());            
@@ -303,7 +303,8 @@ public class Gui implements ActionListener {
                 JLabel l1 = new JLabel();
             
                 //Erzeugt 5 Labels welche die Werte der Würfel dastellen
-                l1.setSize(new Dimension(50, 50));
+                l1.setSize(new Dimension(100, 100));
+                l1.setFont(new Font("Verdana", Font.PLAIN, 18));
                 l1.setName(Integer.toString(d));
                 l1.setText(Integer.toString(sPlayerList.players.get(truePlayer).diceCup.dices[truedice].getCount()));
                 l1.setLocation(100+d*100, 100);
@@ -336,7 +337,7 @@ public class Gui implements ActionListener {
             
             b1.setBackground(Color.black);
             b1.setForeground(Color.white);
-            b1.setSize(new Dimension(100,100));
+            // b1.setSize(new Dimension(100,100));
             b1.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e){
                     for(int d = 0; d<5 ;d++){
@@ -460,6 +461,7 @@ public class Gui implements ActionListener {
             playFrame.add(p2,BorderLayout.WEST);
             playFrame.add(p3,BorderLayout.EAST);
             playFrame.add(p4,BorderLayout.CENTER);
+            playFrame.setDefaultCloseOperation(3); // JFrame.EXIT_ON_CLOSE
             playerFrame.add(playFrame);
         }
     }        
