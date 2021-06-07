@@ -1,4 +1,5 @@
 
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
@@ -53,12 +54,19 @@ public class Gui implements ActionListener {
         mb.add(m2);
 
         frame.setDefaultCloseOperation(3); // JFrame.EXIT_ON_CLOSE
-        frame.setSize(300,300);   
+        frame.setSize(320,148);   
         frame.setTitle("Kniffel");
         frame.setName("Kniffel"); 
+        frame.setLayout(new FlowLayout());
         frame.setJMenuBar(mb);
-       
-        
+
+        JLabel image1 = new JLabel();
+        image1.setVisible(true);
+
+        image1.setIcon(new ImageIcon(getClass().getResource("/Logo.png")));
+
+        frame.add(image1);
+
         frame.setVisible(true);
         frame.setLocation(500, 500);
     }
@@ -144,11 +152,11 @@ public class Gui implements ActionListener {
                 sPlayerList.players.get(truePlayer).scoreSheet.setScore(trueScore ,Sheet.fullHouse(sPlayerList.players.get(truePlayer).diceCup)); 
                 scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoreSheet.getValue(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(trueScore))));
                 p1.revalidate(); p1.repaint(); break;
-            case "Kleine Strasse" : 
+            case "Kleine Straße" : 
                 sPlayerList.players.get(truePlayer).scoreSheet.setScore(trueScore ,Sheet.shortStreet(sPlayerList.players.get(truePlayer).diceCup)); 
                 scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoreSheet.getValue(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(trueScore))));
                 p1.revalidate(); p1.repaint(); break;
-            case "Grosse Strasse" : 
+            case "Große Straße" : 
                 sPlayerList.players.get(truePlayer).scoreSheet.setScore(trueScore ,Sheet.longStreet(sPlayerList.players.get(truePlayer).diceCup)); 
                 scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoreSheet.getValue(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(trueScore))));
                 p1.revalidate(); p1.repaint(); break;
@@ -456,6 +464,7 @@ public class Gui implements ActionListener {
                     p4.add(scores[m]);
                 }
             }
+            
             p4.add(backImgPanel);
             // p4.setAlignmentY(Component.CENTER_ALIGNMENT);
             playFrame.add(p2,BorderLayout.WEST);
