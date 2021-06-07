@@ -430,6 +430,8 @@ public class Gui implements ActionListener {
                 setScores[s] = b2;
                 
             }
+            // ToDo einem JLabel eine Image adden und die anderen JLabels adden
+            JLabel background1 = new JLabel();  //Versuch 1
             for(int k=0; k<5;k++)
             {
                 p1.add(dices[k]);
@@ -471,8 +473,10 @@ public class Gui implements ActionListener {
             playFrame.add(p3,BorderLayout.EAST);
             playFrame.add(p4,BorderLayout.CENTER);
             playFrame.setDefaultCloseOperation(3); // JFrame.EXIT_ON_CLOSE
+       
             playerFrame.add(playFrame);
         }
     }        
  }
+
 }
