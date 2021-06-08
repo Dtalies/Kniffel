@@ -7,13 +7,10 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-
-
 import javax.swing.ImageIcon;
 
-
 public class Gui implements ActionListener {    
-    final String h = "Hilfe";
+    final String h = "Punkte";
     final String c = "Credits";
     private PlayerList spielerliste = new PlayerList();
     private JMenuItem i1, i2, i3, i4, i5;
@@ -39,7 +36,7 @@ public class Gui implements ActionListener {
         i2.addActionListener(this);  
         i3=new JMenuItem("Spiel starten");
         i3.addActionListener(this);    
-        i4=new JMenuItem("Anleitung");
+        i4=new JMenuItem("Punkte");
         i4.addActionListener(this);    
         i5=new JMenuItem("Info");
         i5.addActionListener(this);  
@@ -69,49 +66,6 @@ public class Gui implements ActionListener {
 
         frame.setVisible(true);
         frame.setLocation(500, 500);
-    }
-
-    public void actionPerformed (ActionEvent ae){
-        if(ae.getSource() == i1){
-            String name = JOptionPane.showInputDialog(frame,"Spielername", "Spieler Hinzufügen", JOptionPane.QUESTION_MESSAGE);
-            Player p = new Player();
-            p.setName(name);
-            spielerliste.add(p);             
-            JOptionPane.showMessageDialog(frame,"Der Spieler " + p.getName() + " wurde hinzugefügt");             
-        }
-        if(ae.getSource() == i2){
-            int n = JOptionPane.showConfirmDialog(frame,"WOllen sie das Spiel wirklich Beenden","Spiel Beenden",JOptionPane.YES_NO_OPTION);
-            if(n == JOptionPane.YES_OPTION){
-                frame.dispose();
-                System.exit(0);
-            }
-        }
-        if(ae.getSource() == i3){
-            createGUI(spielerliste);
-            startGame(spielerliste);
-        }
-        if(ae.getSource() == i4){
-            JFrame hilfe = new JFrame();
-            hilfe.setDefaultCloseOperation(2); // JFrame.DISPOSE_ON_CLOSE
-            hilfe.setSize(300,300);   
-            hilfe.setTitle(h);
-            hilfe.setName(h);             
-
-            JTextArea t1 = new JTextArea(h);            
-            hilfe.add(t1);
-            hilfe.setVisible(true);            
-        }
-        if(ae.getSource() == i5){
-            JFrame credits = new JFrame();
-            credits.setDefaultCloseOperation(2); // JFrame.DISPOSE_ON_CLOSE
-            credits.setSize(300,300);   
-            credits.setTitle(c);
-            credits.setName(c); 
-            
-            JTextArea t1 = new JTextArea("credits");            
-            credits.add(t1);
-            credits.setVisible(true);            
-        }
     }
 
     private void decide(PlayerList sPlayerList, int truePlayer , int trueScore, String t, JLabel[] scores, JPanel p1){
@@ -175,7 +129,6 @@ public class Gui implements ActionListener {
 
     }
 
-
     private void sumScore(PlayerList sPlayerList, int truePlayer, JLabel[] scores,JPanel p4){
        
         sPlayerList.players.get(truePlayer).scoreSheet.setScore(6 , sPlayerList.players.get(truePlayer).scoreSheet.sumNoBonus()); 
@@ -192,7 +145,6 @@ public class Gui implements ActionListener {
         
         p4.revalidate();
         p4.repaint();
-    
 }
 
     public void startGame(PlayerList sPlayerList){
@@ -280,10 +232,10 @@ public class Gui implements ActionListener {
             JFrame playFrame = new JFrame();
 
             playFrame.setDefaultCloseOperation(0);
-            playFrame.setSize(800,500);   
+            playFrame.setSize(845,480);   
             playFrame.setTitle(sPlayerList.players.get(i).getName());
             playFrame.setName(Integer.toString(i));
-            playFrame.setLayout(new BorderLayout());            
+            playFrame.setLayout(new FlowLayout(FlowLayout.CENTER));            
             playFrame.setVisible(false);
             playFrame.setLocation(100, 100);
 
@@ -294,7 +246,7 @@ public class Gui implements ActionListener {
             JPanel p3 = new JPanel();
             p3.setLayout(new GridLayout(7,3));
             JPanel p4 = new JPanel();
-            p4.setLayout(new GridLayout(7,1));
+            p4.setLayout(new FlowLayout(FlowLayout.CENTER));
 
 
             JLabel[] scoresName = new JLabel[sPlayerList.players.get(i).scoreSheet.getlength()];
@@ -313,6 +265,7 @@ public class Gui implements ActionListener {
                 //Erzeugt 5 Labels welche die Werte der Würfel dastellen
                 l1.setSize(new Dimension(100, 100));
                 l1.setFont(new Font("Verdana", Font.PLAIN, 18));
+                l1.setForeground(Color.white);
                 l1.setName(Integer.toString(d));
                 l1.setText(Integer.toString(sPlayerList.players.get(truePlayer).diceCup.dices[truedice].getCount()));
                 l1.setLocation(100+d*100, 100);
@@ -322,6 +275,8 @@ public class Gui implements ActionListener {
                 //Erzeugt 5 Checkboxen , welche (wenn angeglickt) die Würfel nicht Würfeln lassen
                 checkroll[d] = new JCheckBox();
                 checkroll[d].setSize(new Dimension(20,20));
+                checkroll[d].setBackground(Color.black);
+                checkroll[d].setForeground(Color.white);
                 checkroll[d].setLocation(200+d*100, 100);
                 checkroll[d].addItemListener(e -> {
                     if(e.getStateChange() == ItemEvent.SELECTED) {
@@ -332,19 +287,20 @@ public class Gui implements ActionListener {
                 });
 
                 checkroll[d].setVisible(false);
-               
-                
-               
-                
             }
                 
             playFrame.add(p1,BorderLayout.NORTH);
 
             //erzeugt den Würfel Button und sobald dieser Betätigt wurde und alle Würfel gewürfelt wurde werden die CheckBoxen auf Visible gesetzt
-            JButton b1 = new JButton("Roll");
-            
-            b1.setBackground(Color.black);
+            JButton b1 = new JButton();
+            b1.setText("Roll");
+            b1.setHorizontalTextPosition(SwingConstants.CENTER);
+            b1.setVerticalTextPosition(SwingConstants.CENTER);
             b1.setForeground(Color.white);
+            b1.setBackground(Color.black);
+            
+            //b1.setIcon(new ImageIcon(getClass().getResource("/b1.png")));
+            
             // b1.setSize(new Dimension(100,100));
             b1.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e){
@@ -368,13 +324,6 @@ public class Gui implements ActionListener {
                 }
             });
             
-            
-           
- 
-            JLabel backImgPanel = new JLabel(new ImageIcon("C:/Download(3).jpg"));
-        
-            backImgPanel.setLayout(null);
-            backImgPanel.setOpaque(false);
             for(int s = 0 ; s<sPlayerList.players.get(i).scoreSheet.getlength(); s++){
                 int trueScore = s;
                 JLabel l2 = new JLabel();
@@ -384,6 +333,7 @@ public class Gui implements ActionListener {
                 l2.setText(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(s));
                 l2.setLocation(100+s*100, 100);
                 l2.setVisible(true);
+                l2.setForeground(Color.white);
                 scoresName[s] = l2;
                 
 
@@ -396,6 +346,7 @@ public class Gui implements ActionListener {
                     l3.setText(Integer.toString(sPlayerList.players.get(truePlayer).scoreSheet.getValue(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(s))));
                 }
                 l3.setLocation(100+s*100, 100);
+                l3.setForeground(Color.white);
                 l3.setVisible(true);
                 scores[s] = l3;
                 
@@ -404,7 +355,7 @@ public class Gui implements ActionListener {
                 //b2.setSize(new Dimension(50, 50));
                 b2.setName(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(s));
                 b2.setText("Eintragen");
-                b2.setLocation(100+s*100, 100);
+                b2.setLocation(100+s*100, 100);  
                 
                 if(trueScore== 6 || trueScore==7 || trueScore==15 || trueScore==16) {
                     b2.setVisible(false);
@@ -430,15 +381,29 @@ public class Gui implements ActionListener {
                 setScores[s] = b2;
                 
             }
+            
+            p2.setBackground(new Color(0,0,0,0));
+            p3.setBackground(new Color(0,0,0,0)); 
+            p4.setBackground(new Color(0,0,0,0));
             // ToDo einem JLabel eine Image adden und die anderen JLabels adden
             JLabel background1 = new JLabel();  //Versuch 1
+            background1.setLayout(new BorderLayout());
+            background1.setIcon(new ImageIcon(getClass().getResource("/tisch.png")));
+
+            JLabel background2 = new JLabel();
+            background2.setLayout(new FlowLayout(FlowLayout.CENTER));
+            background2.setIcon(new ImageIcon(getClass().getResource("/Holztisch3.png")));
+
+            JLabel background3 = new JLabel();
+            background3.setLayout(new FlowLayout(FlowLayout.CENTER));
+            background3.setIcon(new ImageIcon(getClass().getResource("/Holztisch3.png")));
             for(int k=0; k<5;k++)
             {
-                p1.add(dices[k]);
-                p1.add(checkroll[k]);
+                background2.add(dices[k]);
+                background2.add(checkroll[k]);
             }
             if(sPlayerList.players.get(truePlayer).diceCup.getTimesRolled() != 15){ 
-                p1.add(b1);
+                background2.add(b1);
             }
             for(int l = 0; l<sPlayerList.players.get(truePlayer).scoreSheet.getlength()/2-1;l++)
             {
@@ -463,20 +428,90 @@ public class Gui implements ActionListener {
             for(int m = 0; m<sPlayerList.players.get(truePlayer).scoreSheet.getlength();m++){
                 if(m==6 || m==7 || m==15|| m==16){
                     p4.add(scoresName[m]);
+                    scoresName[m].setForeground(Color.white);
                     p4.add(scores[m]);
+                    scores[m].setForeground(Color.white);
                 }
             }
-            
-            p4.add(backImgPanel);
+            JMenuBar mb2 = new JMenuBar();
+
+            JMenu m1 = new JMenu("Spiel");
+            JMenu m2 = new JMenu("Hilfe");
+
+            mb2.setVisible(true);
+
+              
+            i2=new JMenuItem("Spiel Beenden");
+            i2.addActionListener(this);    
+            i4=new JMenuItem("Punkte");
+            i4.addActionListener(this);    
+            i5=new JMenuItem("Info");
+            i5.addActionListener(this);  
+
+            m1.add(i2);
+            m2.add(i4);
+            m2.add(i5);
+        
+            mb2.add(m1);
+            mb2.add(m2);
+            playFrame.setJMenuBar(mb2);
+           
             // p4.setAlignmentY(Component.CENTER_ALIGNMENT);
-            playFrame.add(p2,BorderLayout.WEST);
-            playFrame.add(p3,BorderLayout.EAST);
-            playFrame.add(p4,BorderLayout.CENTER);
+            background1.add(background2,BorderLayout.NORTH);
+            background3.add(p4);
+            background1.add(p2,BorderLayout.WEST);
+            background1.add(p3,BorderLayout.EAST);
+            background1.add(background3,BorderLayout.SOUTH);
             playFrame.setDefaultCloseOperation(3); // JFrame.EXIT_ON_CLOSE
-       
+            playFrame.add(background1);
+            
             playerFrame.add(playFrame);
         }
     }        
  }
 
+
+
+ public void actionPerformed (ActionEvent ae){
+    if(ae.getSource() == i1){
+        String name = JOptionPane.showInputDialog(frame,"Spielername", "Spieler Hinzufügen", JOptionPane.QUESTION_MESSAGE);
+        Player p = new Player();
+        p.setName(name);
+        spielerliste.add(p);             
+        JOptionPane.showMessageDialog(frame,"Der Spieler " + p.getName() + " wurde hinzugefügt");             
+    }
+    if(ae.getSource() == i2){
+        int n = JOptionPane.showConfirmDialog(frame,"WOllen sie das Spiel wirklich Beenden","Spiel Beenden",JOptionPane.YES_NO_OPTION);
+        if(n == JOptionPane.YES_OPTION){
+            frame.dispose();
+            System.exit(0);
+        }
+    }
+    if(ae.getSource() == i3){
+        createGUI(spielerliste);
+        startGame(spielerliste);
+    }
+    if(ae.getSource() == i4){
+        JFrame hilfe = new JFrame();
+        hilfe.setDefaultCloseOperation(2); // JFrame.DISPOSE_ON_CLOSE
+        hilfe.setSize(270,520);
+        JLabel regel = new JLabel();
+        regel.setIcon(new ImageIcon(getClass().getResource("/Regel 1.png")));
+        hilfe.add(regel);
+        hilfe.setTitle(h);
+        hilfe.setName(h);             
+        hilfe.setVisible(true);            
+    }
+    if(ae.getSource() == i5){
+        JFrame credits = new JFrame();
+        credits.setDefaultCloseOperation(2); // JFrame.DISPOSE_ON_CLOSE
+        credits.setSize(300,300);   
+        credits.setTitle(c);
+        credits.setName(c); 
+        
+        JTextArea t1 = new JTextArea("credits");            
+        credits.add(t1);
+        credits.setVisible(true);            
+    }
+}
 }
