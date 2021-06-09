@@ -373,8 +373,8 @@ public class Gui implements ActionListener {
                         checkFinish(sPlayerList,truePlayer);
                         swapPlayer(sPlayerList, truePlayer);
                         addRolleButton(b1, dices,checkroll);
-                        p1.revalidate(); 
-                        p1.repaint();
+                        playFrame.revalidate(); 
+                        playFrame.repaint();
                         
                     }
                 });
