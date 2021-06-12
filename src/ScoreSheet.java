@@ -30,15 +30,15 @@ public class ScoreSheet{
             case 1: title = "Zweier";           break;
             case 2: title = "Dreier";           break;
             case 3: title = "Vierer";           break;
-            case 4: title = "Fünfer";          break;
+            case 4: title = "Fuenfer";          break;
             case 5: title = "Sechser";          break;
             case 6: title = "Links";          break;
             case 7: title = "Bonus";            break;
             case 8: title = "3er";              break;
             case 9: title = "4er";              break;
             case 10: title ="Fullhouse";        break;
-            case 11: title ="Kleine Straße";   break;
-            case 12: title ="Große Straße";   break;
+            case 11: title ="Kleine Strasse";   break;
+            case 12: title ="Grosse Strasse";   break;
             case 13: title ="Kniffel";          break;
             case 14: title ="Chance";           break;
             case 15: title ="Rechts";            break;
@@ -60,7 +60,7 @@ public class ScoreSheet{
                 worked = set(i, value); break;
             case 3: //"Vierer"
                 worked = set(i, value); break;
-            case 4: //"Fünfer"
+            case 4: //"Fuenfer"
                 worked = set(i, value); break;
             case 5: //"Sechser"
                 worked = set(i, value); break;
@@ -74,9 +74,9 @@ public class ScoreSheet{
                 worked = set(i, value); break;
             case 10: //"Fullhouse"
                 worked = set(i, value); break;
-            case 11: //"Kleine Straße"
+            case 11: //"Kleine Strasse"
                 worked = set(i, value); break;
-            case 12: //"Große Straße"
+            case 12: //"Grosse Strasse"
                 worked = set(i, value); break;
             case 13: //"Kniffel"
                 worked = set(i, value); break;
@@ -99,15 +99,15 @@ public class ScoreSheet{
             case "Zweier":          value =score[1];  break;
             case "Dreier":          value =score[2];  break;
             case "Vierer":          value =score[3];  break;
-            case "Fünfer":         value =score[4];  break;
+            case "Fuenfer":         value =score[4];  break;
             case "Sechser":         value =score[5];  break;
             case "Links":         value =score[6];  break;
             case "Bonus":           value =score[7];  break;
             case "3er":             value =score[8];  break;
             case "4er":             value =score[9];  break;
             case "Fullhouse":       value =score[10]; break;
-            case "Kleine Straße":  value =score[11]; break;
-            case "Große Straße":  value =score[12]; break;
+            case "Kleine Strasse":  value =score[11]; break;
+            case "Grosse Strasse":  value =score[12]; break;
             case "Kniffel":         value =score[13]; break;
             case "Chance":          value =score[14]; break;
             case "Rechts":           value =score[15]; break;
