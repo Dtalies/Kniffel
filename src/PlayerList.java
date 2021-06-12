@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class PlayerList {    
-    List<Player> players = new ArrayList<>();
+    public List<Player> players = new ArrayList<>();
 
         //fügt Spieler Hinzu
     public void add(Player player){

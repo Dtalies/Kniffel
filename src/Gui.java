@@ -60,7 +60,7 @@ public class Gui implements ActionListener {
         JLabel image1 = new JLabel();
         image1.setVisible(true);
 
-        image1.setIcon(new ImageIcon(getClass().getResource("/Logo.png")));
+        image1.setIcon(new ImageIcon(getClass().getResource("/res/Logo.png")));
 
         frame.add(image1);
 
@@ -86,7 +86,7 @@ public class Gui implements ActionListener {
                 sPlayerList.players.get(truePlayer).scoreSheet.setScore(trueScore ,Sheet.adding(4,sPlayerList.players.get(truePlayer).diceCup)); 
                 scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoreSheet.getValue(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(trueScore))));
                 p1.revalidate(); p1.repaint(); break;
-            case "Fuenfer" : 
+            case "Fünfer" : 
                 sPlayerList.players.get(truePlayer).scoreSheet.setScore(trueScore ,Sheet.adding(5,sPlayerList.players.get(truePlayer).diceCup)); 
                 scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoreSheet.getValue(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(trueScore))));
                 p1.revalidate(); p1.repaint(); break;
@@ -299,9 +299,6 @@ public class Gui implements ActionListener {
             b1.setForeground(Color.white);
             b1.setBackground(Color.black);
             
-            //b1.setIcon(new ImageIcon(getClass().getResource("/b1.png")));
-            
-            // b1.setSize(new Dimension(100,100));
             b1.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e){
                     for(int d = 0; d<5 ;d++){
@@ -370,11 +367,11 @@ public class Gui implements ActionListener {
                         decide(sPlayerList , truePlayer , trueScore, t, scores , p1);
                         disableButton(sPlayerList, truePlayer, b2, trueScore);
                         sumScore(sPlayerList, truePlayer, scores,p4);
-                        checkFinish(sPlayerList,truePlayer);
                         swapPlayer(sPlayerList, truePlayer);
                         addRolleButton(b1, dices,checkroll);
-                        p1.revalidate(); 
-                        p1.repaint();
+                        playFrame.revalidate(); 
+                        playFrame.repaint();
+                        checkFinish(sPlayerList,truePlayer);
                         
                     }
                 });
@@ -388,15 +385,15 @@ public class Gui implements ActionListener {
             // ToDo einem JLabel eine Image adden und die anderen JLabels adden
             JLabel background1 = new JLabel();  //Versuch 1
             background1.setLayout(new BorderLayout());
-            background1.setIcon(new ImageIcon(getClass().getResource("/tisch.png")));
+            background1.setIcon(new ImageIcon(getClass().getResource("/res/tisch.png")));
 
             JLabel background2 = new JLabel();
             background2.setLayout(new FlowLayout(FlowLayout.CENTER));
-            background2.setIcon(new ImageIcon(getClass().getResource("/Holztisch3.png")));
+            background2.setIcon(new ImageIcon(getClass().getResource("/res/Holztisch3.png")));
 
             JLabel background3 = new JLabel();
             background3.setLayout(new FlowLayout(FlowLayout.CENTER));
-            background3.setIcon(new ImageIcon(getClass().getResource("/Holztisch3.png")));
+            background3.setIcon(new ImageIcon(getClass().getResource("/res/Holztisch3.png")));
             for(int k=0; k<5;k++)
             {
                 background2.add(dices[k]);
@@ -474,14 +471,14 @@ public class Gui implements ActionListener {
 
  public void actionPerformed (ActionEvent ae){
     if(ae.getSource() == i1){
-        String name = JOptionPane.showInputDialog(frame,"Spielername", "Spieler Hinzufügen", JOptionPane.QUESTION_MESSAGE);
+        String name = JOptionPane.showInputDialog(frame,"Spielername", "Spieler:in hinzufügen", JOptionPane.QUESTION_MESSAGE);
         Player p = new Player();
         p.setName(name);
         spielerliste.add(p);             
-        JOptionPane.showMessageDialog(frame,"Der Spieler " + p.getName() + " wurde hinzugefügt");             
+        JOptionPane.showMessageDialog(frame,"Der/Die Spieler:in " + p.getName() + " wurde hinzugefügt");             
     }
     if(ae.getSource() == i2){
-        int n = JOptionPane.showConfirmDialog(frame,"WOllen sie das Spiel wirklich Beenden","Spiel Beenden",JOptionPane.YES_NO_OPTION);
+        int n = JOptionPane.showConfirmDialog(frame,"Wollen Sie das Spiel wirklich beenden?","Spiel beenden",JOptionPane.YES_NO_OPTION);
         if(n == JOptionPane.YES_OPTION){
             frame.dispose();
             System.exit(0);
@@ -496,7 +493,7 @@ public class Gui implements ActionListener {
         hilfe.setDefaultCloseOperation(2); // JFrame.DISPOSE_ON_CLOSE
         hilfe.setSize(270,520);
         JLabel regel = new JLabel();
-        regel.setIcon(new ImageIcon(getClass().getResource("/Regel 1.png")));
+        regel.setIcon(new ImageIcon(getClass().getResource("/res/Regel 1.png")));
         hilfe.add(regel);
         hilfe.setTitle(h);
         hilfe.setName(h);             
