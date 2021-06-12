@@ -1,8 +1,8 @@
 public class Player {
-    String name;
-    boolean turn = false;
-    DiceCup diceCup = new DiceCup(5);
-    ScoreSheet scoreSheet = new ScoreSheet();
+    private String name;
+    private boolean turn = false;
+    public DiceCup diceCup = new DiceCup(5);
+    public ScoreSheet scoreSheet = new ScoreSheet();
 
     //Gibt den Namen des Spielers aus
     public String getName(){

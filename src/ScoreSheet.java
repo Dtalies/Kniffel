@@ -30,9 +30,9 @@ public class ScoreSheet{
             case 1: title = "Zweier";           break;
             case 2: title = "Dreier";           break;
             case 3: title = "Vierer";           break;
-            case 4: title = "Fuenfer";          break;
+            case 4: title = "Fünfer";          break;
             case 5: title = "Sechser";          break;
-            case 6: title = "noBonus";          break;
+            case 6: title = "Links";          break;
             case 7: title = "Bonus";            break;
             case 8: title = "3er";              break;
             case 9: title = "4er";              break;
@@ -41,7 +41,7 @@ public class ScoreSheet{
             case 12: title ="Große Straße";   break;
             case 13: title ="Kniffel";          break;
             case 14: title ="Chance";           break;
-            case 15: title ="Unten";            break;
+            case 15: title ="Rechts";            break;
             case 16: title ="Insgesamt";        break;
             default:                            break;     
         }
@@ -60,11 +60,11 @@ public class ScoreSheet{
                 worked = set(i, value); break;
             case 3: //"Vierer"
                 worked = set(i, value); break;
-            case 4: //"Fuenfer"
+            case 4: //"Fünfer"
                 worked = set(i, value); break;
             case 5: //"Sechser"
                 worked = set(i, value); break;
-            case 6: //"noBonus"
+            case 6: //"Links"
                 worked = setSums(i, value); break;
             case 7: //"Bonus"
                 worked = setSums(i, value); break;
@@ -82,7 +82,7 @@ public class ScoreSheet{
                 worked = set(i, value); break;
             case 14: //"Chance"
                 worked = set(i, value); break;
-            case 15: //"Unten"
+            case 15: //"Rechts"
                 worked = setSums(i, value); break;
             case 16: //"Insgesamt":
                 worked = setSums(i, value); break;
@@ -99,9 +99,9 @@ public class ScoreSheet{
             case "Zweier":          value =score[1];  break;
             case "Dreier":          value =score[2];  break;
             case "Vierer":          value =score[3];  break;
-            case "Fuenfer":         value =score[4];  break;
+            case "Fünfer":         value =score[4];  break;
             case "Sechser":         value =score[5];  break;
-            case "noBonus":         value =score[6];  break;
+            case "Links":         value =score[6];  break;
             case "Bonus":           value =score[7];  break;
             case "3er":             value =score[8];  break;
             case "4er":             value =score[9];  break;
@@ -110,7 +110,7 @@ public class ScoreSheet{
             case "Große Straße":  value =score[12]; break;
             case "Kniffel":         value =score[13]; break;
             case "Chance":          value =score[14]; break;
-            case "Unten":           value =score[15]; break;
+            case "Rechts":           value =score[15]; break;
             case "Insgesamt":       value =score[16]; break;
             default:                value = -1;       break;
         }
@@ -127,7 +127,7 @@ public class ScoreSheet{
     }
     //Prüft ob der noBonus > als 63 ist, da indem fall auf diese Punkt 35 drauf addiert wird.
     public int bonusPoints(){
-        int sumTop = this.getValue("noBonus");
+        int sumTop = this.getValue("Links");
         if(sumTop >= 63){
             sumTop = sumTop + 35;
         }
@@ -143,7 +143,7 @@ public class ScoreSheet{
     }
     //Addiert die Summe mit/ohne Bonus mit der Summe des Hinterenteils
     public int sumInsgesamt() {
-        return this.getValue("Unten")+this.getValue("Bonus");
+        return this.getValue("Rechts")+this.getValue("Bonus");
     }
     
 
@@ -151,7 +151,7 @@ public class ScoreSheet{
     {
         return finished();
     }
-    //überprüft ob alle teile des Arrays != 0 sind
+    //überprüft ob alle teile des Arrays != -1 sind
     private boolean finished(){
         boolean finished = true;
         for(int i = 0; i < score.length ; i++){
