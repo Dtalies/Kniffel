@@ -179,7 +179,6 @@ public class Gui implements ActionListener {
         }
     }
         
-    // }
     private void swapPlayer(PlayerList sPlayerList, int truePlayer){
                 disablePlayer(sPlayerList, truePlayer);
                 activatePlayer(sPlayerList, truePlayer);
