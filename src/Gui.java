@@ -22,6 +22,7 @@ public class Gui implements ActionListener {
         createMainFrame();
     }
     
+    //Erstellt den Haupt menu Frame, inwelchem Spieler hinzugefügt werden können, das Spiel beendet werden kann , das Spiel gestartet werden kann , die Regeln angezeigt werden können und weitere informationen angezeigt werden können
     public void createMainFrame(){        
         JMenuBar mb = new JMenuBar();
 
@@ -68,6 +69,7 @@ public class Gui implements ActionListener {
         frame.setLocation(500, 500);
     }
 
+    //Trägt entsprechent des gedrückten knopfes die richtigen punkte in das Speicher Array des jewalligen spielers und setzt den Text der dazu gehörigen JLabels auf die neue Punktzahl 
     private void decide(PlayerList sPlayerList, int truePlayer , int trueScore, String t, JLabel[] scores, JPanel p1){
         switch(t){
             case "Einer" : 
@@ -129,6 +131,7 @@ public class Gui implements ActionListener {
 
     }
 
+    //Summiert die gesammt punktzahlen der Verschiedenen Teile des Speicher Arrays auf und trägt die neuen punkte in die dazu gehörigen JLabels ein
     private void sumScore(PlayerList sPlayerList, int truePlayer, JLabel[] scores,JPanel p4){
        
         sPlayerList.players.get(truePlayer).scoreSheet.setScore(6 , sPlayerList.players.get(truePlayer).scoreSheet.sumNoBonus()); 
@@ -146,7 +149,7 @@ public class Gui implements ActionListener {
         p4.revalidate();
         p4.repaint();
 }
-
+    //Setzt alle Spieler auf unsichtbar außer den ersten spieler in der liste (Dieser Spieler ist immer der Spieler der beginnt)
     public void startGame(PlayerList sPlayerList){
             for(int z = 0; z<sPlayerList.getSize();z++){ 
                     playerFrame.get(z).setVisible(false);   
@@ -155,7 +158,7 @@ public class Gui implements ActionListener {
             playerFrame.get(0).setVisible(true);
             sPlayerList.players.get(0).setTurn(true);
     }
-
+    //überprüft ob der Spieler der als nächstes am zug ist, alle Aufgaben schon eingetragen hat, da ab diesem Zeitpunkt das Spiel vorbei ist.
     private void checkFinish(PlayerList sPlayerList,int truePlayer){
         
         
@@ -178,11 +181,12 @@ public class Gui implements ActionListener {
             System.exit(0);
         }
     }
-        
+        //Löst die beiden Methode zum Tauschen der Spieler aus.
     private void swapPlayer(PlayerList sPlayerList, int truePlayer){
                 disablePlayer(sPlayerList, truePlayer);
                 activatePlayer(sPlayerList, truePlayer);
     }
+    //Setzt alle Spieler auf unsichtbar / setzt die werte der Würfel zurück / setzt den Wert ob sie am zug sind auf false / cleared die anzahl an würfen
     public void disablePlayer(PlayerList sPlayerList, int truePlayer){
         for(int i = 0;i<sPlayerList.getSize();i++)
         {
@@ -192,6 +196,7 @@ public class Gui implements ActionListener {
             playerFrame.get(truePlayer).setVisible(false);
         }
     }
+    //Setzt den Spieler welcher nun am zug ist auf Sichtbar und den Wert ob der Spieler am zug ist auf true
     public void activatePlayer(PlayerList sPlayerList, int truePlayer){
         if(truePlayer== sPlayerList.getSize()-1){
             sPlayerList.players.get(0).setTurn(true);
@@ -202,6 +207,7 @@ public class Gui implements ActionListener {
             playerFrame.get((truePlayer+1)*9).setVisible(true);
         }
     }
+    //Setzt den Roll button auf nicht sichtbar, da nur maximal 3 mal gerollt werden darf
     public void disableButton(PlayerList sPlayerList, int truePlayer, JButton b2, int trueScore){
         int tempScore = sPlayerList.players.get(truePlayer).scoreSheet.getValue(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(trueScore));
                     if(tempScore <0){
@@ -211,6 +217,7 @@ public class Gui implements ActionListener {
                         b2.setVisible(false);
                     }
     }
+    //Setzt den Rollbutton wieder auf sichtbar und setzt die Labels welche die einzelnen Würfel repräsentieren auf den Standart zurück, genau so wie die Checkboxen
      public void addRolleButton(JButton b1,JLabel[] dices, JCheckBox[] checkRoll){
          b1.setVisible(true);
 
@@ -222,6 +229,7 @@ public class Gui implements ActionListener {
 
     }
 
+    //Erstellt die Haupt GUI, also die Frames für die Einzelnen Spieler
     private void createGUI(PlayerList sPlayerList)
     {
         
@@ -324,7 +332,7 @@ public class Gui implements ActionListener {
                 int trueScore = s;
                 JLabel l2 = new JLabel();
 
-                //l2.setSize(new Dimension(50, 50));
+                
                 l2.setName(Integer.toString(s));
                 l2.setText(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(s));
                 l2.setLocation(100+s*100, 100);
@@ -334,7 +342,6 @@ public class Gui implements ActionListener {
                 
 
                 JLabel l3 = new JLabel();
-                //l3.setSize(new Dimension(50, 50));
                 l3.setName(Integer.toString(s));
                 if (sPlayerList.players.get(truePlayer).scoreSheet.getValue(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(s)) < 0) {
                     l3.setText("0");
@@ -346,9 +353,8 @@ public class Gui implements ActionListener {
                 l3.setVisible(true);
                 scores[s] = l3;
                 
-
+                //Fügt den Button zum eintragen einer Aufgabe hinzu
                 JButton b2 = new JButton();
-                //b2.setSize(new Dimension(50, 50));
                 b2.setName(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(s));
                 b2.setText("Eintragen");
                 b2.setLocation(100+s*100, 100);  
@@ -358,6 +364,7 @@ public class Gui implements ActionListener {
                 } else {
                     b2.setVisible(true);
                 }
+                //Dies sind die Verschiedenen Methoden, welche am Ende eines Spielzuges durchgeführt werden, damit alles wieder auf einen Standart zurück gesetzt wird.
                 b2.addActionListener(new ActionListener(){
                     public void actionPerformed(ActionEvent e)
                     {
@@ -378,11 +385,12 @@ public class Gui implements ActionListener {
                 
             }
             
+            //In diesem Teil werden die verschiedenen Labels in die Richtigen panels etc geadded, und Bilder für den Hintergrund werden erstellt.
+            //Kurz gesagt wird in diesem Teil das gesammte Layout zusammen gesetzt.
             p2.setBackground(new Color(0,0,0,0));
             p3.setBackground(new Color(0,0,0,0)); 
             p4.setBackground(new Color(0,0,0,0));
-            // ToDo einem JLabel eine Image adden und die anderen JLabels adden
-            JLabel background1 = new JLabel();  //Versuch 1
+            JLabel background1 = new JLabel();  
             background1.setLayout(new BorderLayout());
             background1.setIcon(new ImageIcon(getClass().getResource("/res/tisch.png")));
 
@@ -429,6 +437,8 @@ public class Gui implements ActionListener {
                     scores[m].setForeground(Color.white);
                 }
             }
+
+            // fügt die Menubar hinzu damit die Punkte angezeigt werden können
             JMenuBar mb2 = new JMenuBar();
 
             JMenu m1 = new JMenu("Spiel");
@@ -452,7 +462,7 @@ public class Gui implements ActionListener {
             mb2.add(m2);
             playFrame.setJMenuBar(mb2);
            
-            // p4.setAlignmentY(Component.CENTER_ALIGNMENT);
+            
             background1.add(background2,BorderLayout.NORTH);
             background3.add(p4);
             background1.add(p2,BorderLayout.WEST);
@@ -466,7 +476,7 @@ public class Gui implements ActionListener {
     }        
  }
 
-
+//Dies sind die Verschiedenen sachen welche ausgelöst werden, wenn die Verschiedenen Teile der Menubar betätigt werden
 
  public void actionPerformed (ActionEvent ae){
     if(ae.getSource() == i1){
