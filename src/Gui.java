@@ -30,7 +30,7 @@ public class Gui implements ActionListener {
 
         mb.setVisible(true);
 
-        i1=new JMenuItem("Spieler hinzufügen");
+        i1=new JMenuItem("Spieler hinzufuegen");
         i1.addActionListener(this);  
         i2=new JMenuItem("Spiel beenden");  
         i2.addActionListener(this);  
@@ -86,7 +86,7 @@ public class Gui implements ActionListener {
                 sPlayerList.players.get(truePlayer).scoreSheet.setScore(trueScore ,Sheet.adding(4,sPlayerList.players.get(truePlayer).diceCup)); 
                 scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoreSheet.getValue(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(trueScore))));
                 p1.revalidate(); p1.repaint(); break;
-            case "Fünfer" : 
+            case "Fuenfer" : 
                 sPlayerList.players.get(truePlayer).scoreSheet.setScore(trueScore ,Sheet.adding(5,sPlayerList.players.get(truePlayer).diceCup)); 
                 scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoreSheet.getValue(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(trueScore))));
                 p1.revalidate(); p1.repaint(); break;
@@ -106,11 +106,11 @@ public class Gui implements ActionListener {
                 sPlayerList.players.get(truePlayer).scoreSheet.setScore(trueScore ,Sheet.fullHouse(sPlayerList.players.get(truePlayer).diceCup)); 
                 scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoreSheet.getValue(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(trueScore))));
                 p1.revalidate(); p1.repaint(); break;
-            case "Kleine Straße" : 
+            case "Kleine Strasse" : 
                 sPlayerList.players.get(truePlayer).scoreSheet.setScore(trueScore ,Sheet.shortStreet(sPlayerList.players.get(truePlayer).diceCup)); 
                 scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoreSheet.getValue(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(trueScore))));
                 p1.revalidate(); p1.repaint(); break;
-            case "Große Straße" : 
+            case "Grosse Strasse" : 
                 sPlayerList.players.get(truePlayer).scoreSheet.setScore(trueScore ,Sheet.longStreet(sPlayerList.players.get(truePlayer).diceCup)); 
                 scores[trueScore].setText(Integer.toString(sPlayerList.players.get(truePlayer).scoreSheet.getValue(sPlayerList.players.get(truePlayer).scoreSheet.getTitle(trueScore))));
                 p1.revalidate(); p1.repaint(); break;
@@ -261,7 +261,7 @@ public class Gui implements ActionListener {
                 int truedice = d;
                 JLabel l1 = new JLabel();
             
-                //Erzeugt 5 Labels welche die Werte der Würfel dastellen
+                //Erzeugt 5 Labels welche die Werte der Wuerfel dastellen
                 l1.setSize(new Dimension(100, 100));
                 l1.setFont(new Font("Verdana", Font.PLAIN, 18));
                 l1.setForeground(Color.white);
@@ -271,7 +271,7 @@ public class Gui implements ActionListener {
                 l1.setVisible(true);
                 dices[d] = l1;
 
-                //Erzeugt 5 Checkboxen , welche (wenn angeglickt) die Würfel nicht Würfeln lassen
+                //Erzeugt 5 Checkboxen , welche (wenn angeglickt) die Wuerfel nicht Wuerfeln lassen
                 checkroll[d] = new JCheckBox();
                 checkroll[d].setSize(new Dimension(20,20));
                 checkroll[d].setBackground(Color.black);
@@ -290,7 +290,7 @@ public class Gui implements ActionListener {
                 
             playFrame.add(p1,BorderLayout.NORTH);
 
-            //erzeugt den Würfel Button und sobald dieser Betätigt wurde und alle Würfel gewürfelt wurde werden die CheckBoxen auf Visible gesetzt
+            //erzeugt den Wuerfel Button und sobald dieser Betaetigt wurde und alle Wuerfel gewuerfelt wurde werden die CheckBoxen auf Visible gesetzt
             JButton b1 = new JButton();
             b1.setText("Roll");
             b1.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -470,11 +470,11 @@ public class Gui implements ActionListener {
 
  public void actionPerformed (ActionEvent ae){
     if(ae.getSource() == i1){
-        String name = JOptionPane.showInputDialog(frame,"Spielername", "Spieler:in hinzufügen", JOptionPane.QUESTION_MESSAGE);
+        String name = JOptionPane.showInputDialog(frame,"Spielername", "Spieler:in hinzufuegen", JOptionPane.QUESTION_MESSAGE);
         Player p = new Player();
         p.setName(name);
         spielerliste.add(p);             
-        JOptionPane.showMessageDialog(frame,"Der/Die Spieler:in " + p.getName() + " wurde hinzugefügt");             
+        JOptionPane.showMessageDialog(frame,"Der/Die Spieler:in " + p.getName() + " wurde hinzugefuegt");             
     }
     if(ae.getSource() == i2){
         int n = JOptionPane.showConfirmDialog(frame,"Wollen Sie das Spiel wirklich beenden?","Spiel beenden",JOptionPane.YES_NO_OPTION);
